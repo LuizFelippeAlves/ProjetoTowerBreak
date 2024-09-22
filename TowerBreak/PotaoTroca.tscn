@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bgka81stwaydy"]
+
+[ext_resource type="Script" path="res://potao_troca.gd" id="1_167q8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xwm2e"]
+size = Vector2(60.5, 54)
+
+[node name="Portal" type="Area2D"]
+script = ExtResource("1_167q8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.25, 0)
+shape = SubResource("RectangleShape2D_xwm2e")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
