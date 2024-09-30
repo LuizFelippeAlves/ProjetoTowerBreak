@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ohauqgqrgx7b"]
 
-[ext_resource type="Script" path="res://potao_troca.gd" id="1_167q8"]
+[ext_resource type="Script" path="res://Scripts/potao_troca.gd" id="1_167q8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xwm2e"]
 size = Vector2(60.5, 54)

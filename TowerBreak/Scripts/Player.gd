@@ -3,34 +3,56 @@ extends CharacterBody2D
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var is_jumping := false
+var current_state := "Idle"
 
-@onready var animation := $AnimationPlayer/animacao as AnimatedSprite2D
+@onready var animation_player := $AnimationPlayer
+
+func _ready():
+	if animation_player == null:
+		print("Erro: Nó de AnimationPlayer não encontrado!")
 
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
+	# Adiciona gravidade
 	if not is_on_floor():
-		velocity += get_gravity() * delta
+		velocity.y += ProjectSettings.get_setting("physics/2d/default_gravity") * delta
+	else:
+		velocity.y = 0
 
-	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+	# Lidar com o pulo
+	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 		is_jumping = true
+		change_state("Jump")
 	elif is_on_floor():
 		is_jumping = false
 
-	# Get the input direction and handle the movement/deceleration.
-	var direction := Input.get_axis("ui_left", "ui_right")
+	# Movimentação lateral
+	var direction := Input.get_axis("move_left", "move_right")
 	if direction != 0:
 		velocity.x = direction * SPEED
-		animation.scale.x = direction
-		if !is_jumping && velocity.x != 0:
-			animation.play("Running")
-	elif is_jumping:
-		animation.play("jump")
+		if !is_jumping:
+			change_state("Running")
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
-		animation.play("Idle")
+		if !is_jumping:
+			change_state("Idle")
 
+	# Mover o personagem
 	move_and_slide()
+
+# Função para trocar estados e animações
+func change_state(new_state: String) -> void:
+	if current_state != new_state:
+		current_state = new_state
+		match current_state:
+			"Idle":
+				animation_player.play("Idle")
+			"Running":
+				animation_player.play("Running")
+			"Jump":
+				animation_player.play("jump")
+			"Attack":
+				animation_player.play("attack")
+			"Damage":
+				animation_player.play("Damage")
