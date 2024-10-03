@@ -1,58 +1,52 @@
 extends CharacterBody2D
 
-const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
+# Variáveis de movimento
+var velocidade = Vector2.ZERO
+var velocidade_max = 200
+var pulo_forca = -500
+var gravidade = 1000
 
-var is_jumping := false
-var current_state := "Idle"
+# Nós do jogador
+@onready var animacao = $animacao
+@onready var hitbox = $Hitbox
+@onready var hitbox_collision = $Hitbox/CollisionShape2D
 
-@onready var animation_player := $AnimationPlayer
-
-func _ready():
-	if animation_player == null:
-		print("Erro: Nó de AnimationPlayer não encontrado!")
-
-func _physics_process(delta: float) -> void:
-	# Adiciona gravidade
+func _process(delta):
+	var direcao_x = Input.get_axis("move_left", "move_right")
+	
+	# Movimento horizontal
+	velocidade.x = direcao_x * velocidade_max
+	
+	# Gravidade
 	if not is_on_floor():
-		velocity.y += ProjectSettings.get_setting("physics/2d/default_gravity") * delta
-	else:
-		velocity.y = 0
+		velocidade.y += gravidade * delta
+	
+	# Pulo
+	if is_on_floor() and Input.is_action_just_pressed("jump"):
+		velocidade.y = pulo_forca
 
-	# Lidar com o pulo
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-		is_jumping = true
-		change_state("Jump")
-	elif is_on_floor():
-		is_jumping = false
-
-	# Movimentação lateral
-	var direction := Input.get_axis("move_left", "move_right")
-	if direction != 0:
-		velocity.x = direction * SPEED
-		if !is_jumping:
-			change_state("Running")
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		if !is_jumping:
-			change_state("Idle")
-
-	# Mover o personagem
+	# Atualiza as animações e direção
+	update_direction_and_animations(direcao_x)
+	
+	# Move o personagem
 	move_and_slide()
 
-# Função para trocar estados e animações
-func change_state(new_state: String) -> void:
-	if current_state != new_state:
-		current_state = new_state
-		match current_state:
-			"Idle":
-				animation_player.play("Idle")
-			"Running":
-				animation_player.play("Running")
-			"Jump":
-				animation_player.play("jump")
-			"Attack":
-				animation_player.play("attack")
-			"Damage":
-				animation_player.play("Damage")
+func update_direction_and_animations(direcao_x):
+	if direcao_x != 0:
+		# Espelha o sprite e a hitbox
+		animacao.flip_h = direcao_x < 0
+
+		# Ajusta a posição da hitbox ao espelhar
+		if direcao_x > 0:
+			hitbox.position.x = 10  # Posição à direita do jogador
+		else:
+			hitbox.position.x = -10  # Posição à esquerda do jogador
+
+	# Troca as animações com base no estado
+	if is_on_floor():
+		if direcao_x == 0:
+			animacao.play("Idle")
+		else:
+			animacao.play("Running")
+	else:
+		animacao.play("Jump")
