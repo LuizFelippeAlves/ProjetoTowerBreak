@@ -1,52 +1,36 @@
 extends CharacterBody2D
 
-# Variáveis de movimento
-var velocidade = Vector2.ZERO
-var velocidade_max = 200
-var pulo_forca = -500
-var gravidade = 1000
+const SPEED = 200.0
+const JUMP_VELOCITY = -350.0
 
-# Nós do jogador
-@onready var animacao = $animacao
-@onready var hitbox = $Hitbox
-@onready var hitbox_collision = $Hitbox/CollisionShape2D
+var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var is_jumping := false
 
-func _process(delta):
-	var direcao_x = Input.get_axis("move_left", "move_right")
-	
-	# Movimento horizontal
-	velocidade.x = direcao_x * velocidade_max
-	
-	# Gravidade
+@onready var animation := $animacao as AnimatedSprite2D
+
+func _physics_process(delta: float) -> void:
+	# Adiciona gravidade
 	if not is_on_floor():
-		velocidade.y += gravidade * delta
-	
-	# Pulo
-	if is_on_floor() and Input.is_action_just_pressed("jump"):
-		velocidade.y = pulo_forca
+		velocity += get_gravity() * delta
 
-	# Atualiza as animações e direção
-	update_direction_and_animations(direcao_x)
-	
-	# Move o personagem
-	move_and_slide()
+	# Lida com pulo usando a tecla 'W'
+	if Input.is_action_just_pressed("jump") and is_on_floor():
+		velocity.y = JUMP_VELOCITY
+		is_jumping = true
+	elif is_on_floor():
+		is_jumping = false
 
-func update_direction_and_animations(direcao_x):
-	if direcao_x != 0:
-		# Espelha o sprite e a hitbox
-		animacao.flip_h = direcao_x < 0
-
-		# Ajusta a posição da hitbox ao espelhar
-		if direcao_x > 0:
-			hitbox.position.x = 10  # Posição à direita do jogador
-		else:
-			hitbox.position.x = -10  # Posição à esquerda do jogador
-
-	# Troca as animações com base no estado
-	if is_on_floor():
-		if direcao_x == 0:
-			animacao.play("Idle")
-		else:
-			animacao.play("Running")
+	# Obtém direção para movimento (A para esquerda, D para direita)
+	var direction := Input.get_axis("move_left", "move_right")
+	if direction != 0:
+		velocity.x = direction * SPEED
+		animation.scale.x = direction
+		if !is_jumping and velocity.x != 0:
+			animation.play("Running")
+	elif is_jumping:
+		animation.play("jump")
 	else:
-		animacao.play("Jump")
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+		animation.play("Idle")
+
+	move_and_slide()
