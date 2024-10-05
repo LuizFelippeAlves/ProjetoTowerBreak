@@ -1,13 +1,13 @@
 [gd_scene load_steps=16 format=4 uid="uid://mehgf8vs1uqs"]
 
-[ext_resource type="Texture2D" uid="uid://bv6seowfsvhjv" path="res://assets/TileSetsAreas/Area - 0/Fundo area inicial.png" id="1_0s8hn"]
-[ext_resource type="Texture2D" uid="uid://ckht4lbuoe3rl" path="res://assets/TileSetsAreas/Area - 0/Tileset Area Inicial.png" id="2_qdp6t"]
-[ext_resource type="PackedScene" uid="uid://camspvi8wpf5i" path="res://Base player.tscn" id="3_g2v8y"]
-[ext_resource type="Texture2D" uid="uid://dgwc0os2lmbjf" path="res://assets/Effects,Hud,Itens/Fogueira-Sprit.png" id="6_d5xqb"]
-[ext_resource type="PackedScene" uid="uid://ohauqgqrgx7b" path="res://PotaoTroca.tscn" id="7_j7gvl"]
+[ext_resource type="Texture2D" uid="uid://bv6seowfsvhjv" path="res://assets/TileSetsAreas/Area - 0/Fundo area inicial.png" id="1_kooqx"]
+[ext_resource type="Texture2D" uid="uid://ckht4lbuoe3rl" path="res://assets/TileSetsAreas/Area - 0/Tileset Area Inicial.png" id="2_wl14o"]
+[ext_resource type="PackedScene" uid="uid://camspvi8wpf5i" path="res://Util/Base player.tscn" id="3_jhsw7"]
+[ext_resource type="Texture2D" uid="uid://dgwc0os2lmbjf" path="res://assets/Effects,Hud,Itens/Fogueira-Sprit.png" id="4_hmme5"]
+[ext_resource type="PackedScene" uid="uid://ohauqgqrgx7b" path="res://Util/PotaoTroca.tscn" id="5_w7e3m"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mu5wv"]
-texture = ExtResource("1_0s8hn")
+texture = ExtResource("1_kooqx")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 1:0/0 = 0
@@ -811,7 +811,7 @@ texture_region_size = Vector2i(32, 32)
 0:5/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bb0ti"]
-texture = ExtResource("2_qdp6t")
+texture = ExtResource("2_wl14o")
 texture_region_size = Vector2i(32, 32)
 3:0/0 = 0
 4:0/0 = 0
@@ -1168,23 +1168,23 @@ sources/0 = SubResource("TileSetAtlasSource_mu5wv")
 sources/1 = SubResource("TileSetAtlasSource_bb0ti")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fevts"]
-atlas = ExtResource("6_d5xqb")
+atlas = ExtResource("4_hmme5")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_or6fk"]
-atlas = ExtResource("6_d5xqb")
+atlas = ExtResource("4_hmme5")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fyqwq"]
-atlas = ExtResource("6_d5xqb")
+atlas = ExtResource("4_hmme5")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_12wsp"]
-atlas = ExtResource("6_d5xqb")
+atlas = ExtResource("4_hmme5")
 region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2nqjk"]
-atlas = ExtResource("6_d5xqb")
+atlas = ExtResource("4_hmme5")
 region = Rect2(128, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xqjcc"]
@@ -1247,10 +1247,10 @@ tile_set = SubResource("TileSet_60kdq")
 
 [node name="portao" type="TileMapLayer" parent="TileMapAndar0"]
 use_parent_material = true
-tile_map_data = PackedByteArray("AAARAAcAAQAIAAcAAAARAAYAAQAIAAYAAAASAAYAAQAJAAYAAAASAAcAAQAJAAcAAAA=")
+tile_map_data = PackedByteArray("AAARAAcAAQAGAAcAAAARAAYAAQAGAAYAAAASAAYAAQAHAAYAAAASAAcAAQAHAAcAAAA=")
 tile_set = SubResource("TileSet_60kdq")
 
-[node name="CharacterBody2D" parent="." groups=["Player"] instance=ExtResource("3_g2v8y")]
+[node name="CharacterBody2D" parent="." groups=["Player"] instance=ExtResource("3_jhsw7")]
 position = Vector2(20, 244)
 collision_mask = 3
 
@@ -1266,8 +1266,8 @@ frame_progress = 0.429756
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Fugueira"]
 shape = SubResource("CapsuleShape2D_sundc")
 
-[node name="Portal" parent="." instance=ExtResource("7_j7gvl")]
+[node name="Portal" parent="." instance=ExtResource("5_w7e3m")]
 position = Vector2(576, 229)
 collision_layer = 2
 collision_mask = 3
-nextScene = "res://andar_1.tscn"
+nextScene = "res://Scenes/cut_scene_andar_1.tscn"
