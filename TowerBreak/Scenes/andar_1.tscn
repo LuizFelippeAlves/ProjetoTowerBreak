@@ -1,10 +1,9 @@
-[gd_scene load_steps=54 format=4 uid="uid://6hqeqbm3ifq"]
+[gd_scene load_steps=59 format=4 uid="uid://6hqeqbm3ifq"]
 
 [ext_resource type="Texture2D" uid="uid://bv6seowfsvhjv" path="res://assets/TileSetsAreas/Area - 0/Fundo area inicial.png" id="1_i6xxf"]
 [ext_resource type="Texture2D" uid="uid://ckht4lbuoe3rl" path="res://assets/TileSetsAreas/Area - 0/Tileset Area Inicial.png" id="2_crl7t"]
 [ext_resource type="Texture2D" uid="uid://kfjveew5jpyr" path="res://assets/TileSetsAreas/Area - 1/Fundo Area1.png" id="3_knupg"]
 [ext_resource type="Texture2D" uid="uid://lqxi0m2l1gv0" path="res://assets/TileSetsAreas/Area - 1/TileSet(Area1).png" id="4_dd0ah"]
-[ext_resource type="PackedScene" uid="uid://camspvi8wpf5i" path="res://Util/Base player.tscn" id="5_unj8g"]
 [ext_resource type="Texture2D" uid="uid://biq2o6la0aj3j" path="res://assets/Sprits/GolemAnimations/SpriteGlmAtqPilar.png" id="13_0pnld"]
 [ext_resource type="Texture2D" uid="uid://bwyrvksg3po33" path="res://assets/Sprits/GolemAnimations/SpriteGlmAtqProjetil.png" id="14_kxrfi"]
 [ext_resource type="Texture2D" uid="uid://bugvpvemww7hh" path="res://assets/Sprits/GolemAnimations/SpriteGlmParada.png" id="15_eql4w"]
@@ -1607,7 +1606,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"AtqPilar",
-"speed": 3.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.2,
@@ -1651,7 +1650,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"AtqProj",
-"speed": 3.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.3,
@@ -1706,6 +1705,154 @@ animations = [{
 "speed": 3.0
 }]
 
+[sub_resource type="Animation" id="Animation_82lek"]
+resource_name = "Attack_floor_attack"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"AtqPilar"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.433333, 0.666667, 0.933333, 1.16667, 2.13333, 2.43333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 5, 6, 7, 10]
+}
+
+[sub_resource type="Animation" id="Animation_1151a"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"AtqPilar"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_dk5ge"]
+resource_name = "Attack_hand_attack"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"AtqProj"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.333333, 0.533333, 0.733333, 0.9, 1.1, 1.3, 1.5, 1.7, 1.9, 2.1, 2.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+}
+
+[sub_resource type="Animation" id="Animation_3uy3h"]
+resource_name = "Death"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Morrendo"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.233333, 0.466667, 0.666667, 0.9, 1.13333, 1.36667, 1.63333, 1.86667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+}
+
+[sub_resource type="Animation" id="Animation_43jhh"]
+resource_name = "Idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.266667, 0.466667, 0.666667, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bof20"]
+_data = {
+"Attack_floor_attack": SubResource("Animation_82lek"),
+"Attack_hand_attack": SubResource("Animation_dk5ge"),
+"Death": SubResource("Animation_3uy3h"),
+"Idle": SubResource("Animation_43jhh"),
+"RESET": SubResource("Animation_1151a")
+}
+
 [node name="Mundo" type="Node2D"]
 
 [node name="TileMapAndar1" type="Node2D" parent="."]
@@ -1727,20 +1874,47 @@ use_parent_material = true
 tile_map_data = PackedByteArray("AAACAAQAAwAAAAQAAAACAAYAAwAAAAYAAAACAAcAAwAAAAcAAAADAAQAAwABAAQAAAADAAUAAwABAAUAAAADAAcAAwABAAcAAAAEAAQAAwACAAQAAAAFAAQAAwADAAQAAAAGAAQAAwAEAAQAAAAHAAQAAwAFAAQAAAAHAAUAAwAFAAUAAAAHAAYAAwAFAAYAAAAHAAcAAwAFAAcAAAAMAAQAAwAAAAQAAAAMAAUAAwAAAAUAAAAMAAYAAwAAAAYAAAAMAAcAAwAAAAcAAAANAAQAAwABAAQAAAANAAUAAwABAAUAAAANAAcAAwABAAcAAAAOAAQAAwACAAQAAAAPAAQAAwADAAQAAAAQAAQAAwAEAAQAAAARAAQAAwAFAAQAAAARAAUAAwAFAAUAAAARAAYAAwAFAAYAAAARAAcAAwAFAAcAAAACAAUAAwAAAAUAAAD//wAAAwABAAAAAAD//wEAAwABAAAAAAD//wIAAwABAAAAAAD//wMAAwABAAAAAAD//wQAAwABAAAAAAA=")
 tile_set = SubResource("TileSet_60kdq")
 
-[node name="CharacterBody2D" parent="." instance=ExtResource("5_unj8g")]
-position = Vector2(27, 244)
-
-[node name="Teste" type="CharacterBody2D" parent="."]
+[node name="Golem" type="CharacterBody2D" parent="."]
 position = Vector2(503, 226)
 scale = Vector2(-1, 1)
+collision_layer = 4
+collision_mask = 7
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Teste"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Golem"]
 position = Vector2(1.25, 2)
 shape = SubResource("RectangleShape2D_q31if")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Teste"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Golem"]
 position = Vector2(0, 1)
 sprite_frames = SubResource("SpriteFrames_j1jwg")
-animation = &"Idle"
+animation = &"AtqPilar"
 autoplay = "Idle"
-frame_progress = 0.747886
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Golem"]
+libraries = {
+"": SubResource("AnimationLibrary_bof20")
+}
+
+[node name="timers" type="Node2D" parent="Golem"]
+
+[node name="MovementTimer" type="Timer" parent="Golem/timers"]
+
+[node name="IdleTimer" type="Timer" parent="Golem/timers"]
+
+[node name="ArmCastTimer" type="Timer" parent="Golem/timers"]
+
+[node name="MetelanciaTimer" type="Timer" parent="Golem/timers"]
+
+[node name="Visao" type="RayCast2D" parent="Golem"]
+
+[node name="Positions" type="Node2D" parent="Golem"]
+
+[node name="Areas" type="Node2D" parent="Golem"]
+
+[node name="Influencia" type="Area2D" parent="Golem/Areas"]
+
+[node name="Shape" type="CollisionShape2D" parent="Golem/Areas/Influencia"]
+
+[node name="Interacao" type="Area2D" parent="Golem/Areas"]
+
+[node name="Shape" type="CollisionShape2D" parent="Golem/Areas/Interacao"]
