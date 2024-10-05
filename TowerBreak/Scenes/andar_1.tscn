@@ -1,9 +1,10 @@
-[gd_scene load_steps=59 format=4 uid="uid://6hqeqbm3ifq"]
+[gd_scene load_steps=60 format=4 uid="uid://6hqeqbm3ifq"]
 
 [ext_resource type="Texture2D" uid="uid://bv6seowfsvhjv" path="res://assets/TileSetsAreas/Area - 0/Fundo area inicial.png" id="1_i6xxf"]
 [ext_resource type="Texture2D" uid="uid://ckht4lbuoe3rl" path="res://assets/TileSetsAreas/Area - 0/Tileset Area Inicial.png" id="2_crl7t"]
 [ext_resource type="Texture2D" uid="uid://kfjveew5jpyr" path="res://assets/TileSetsAreas/Area - 1/Fundo Area1.png" id="3_knupg"]
 [ext_resource type="Texture2D" uid="uid://lqxi0m2l1gv0" path="res://assets/TileSetsAreas/Area - 1/TileSet(Area1).png" id="4_dd0ah"]
+[ext_resource type="PackedScene" uid="uid://camspvi8wpf5i" path="res://Util/Base player.tscn" id="5_unj8g"]
 [ext_resource type="Texture2D" uid="uid://biq2o6la0aj3j" path="res://assets/Sprits/GolemAnimations/SpriteGlmAtqPilar.png" id="13_0pnld"]
 [ext_resource type="Texture2D" uid="uid://bwyrvksg3po33" path="res://assets/Sprits/GolemAnimations/SpriteGlmAtqProjetil.png" id="14_kxrfi"]
 [ext_resource type="Texture2D" uid="uid://bugvpvemww7hh" path="res://assets/Sprits/GolemAnimations/SpriteGlmParada.png" id="15_eql4w"]
@@ -1855,6 +1856,12 @@ _data = {
 
 [node name="Mundo" type="Node2D"]
 
+[node name="CharacterBody2D" parent="." instance=ExtResource("5_unj8g")]
+position = Vector2(31, 239)
+rotation = 3.14159
+scale = Vector2(-1, -1)
+collision_mask = 7
+
 [node name="TileMapAndar1" type="Node2D" parent="."]
 
 [node name="chao" type="TileMapLayer" parent="TileMapAndar1"]
@@ -1898,14 +1905,20 @@ libraries = {
 [node name="timers" type="Node2D" parent="Golem"]
 
 [node name="MovementTimer" type="Timer" parent="Golem/timers"]
+one_shot = true
 
 [node name="IdleTimer" type="Timer" parent="Golem/timers"]
+one_shot = true
 
 [node name="ArmCastTimer" type="Timer" parent="Golem/timers"]
+one_shot = true
 
 [node name="MetelanciaTimer" type="Timer" parent="Golem/timers"]
+one_shot = true
 
 [node name="Visao" type="RayCast2D" parent="Golem"]
+position = Vector2(15, -13)
+target_position = Vector2(455, 27)
 
 [node name="Positions" type="Node2D" parent="Golem"]
 
