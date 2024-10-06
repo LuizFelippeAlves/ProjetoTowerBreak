@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bn1w7dd5qky7v"
-path="res://.godot/imported/SpriteGlmParado.png-c30e89b8f83dfa876c12870d55fcfa06.ctex"
+uid="uid://ctfhllh8ujx4o"
+path="res://.godot/imported/SpriteGlmAtqH.png-d4611551b0ef98cbf4c578c78d642a8f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprits/GolemAnimations/SpriteGlmParado.png"
-dest_files=["res://.godot/imported/SpriteGlmParado.png-c30e89b8f83dfa876c12870d55fcfa06.ctex"]
+source_file="res://assets/Sprits/GolemAnimations/SpriteGlmAtqH.png"
+dest_files=["res://.godot/imported/SpriteGlmAtqH.png-d4611551b0ef98cbf4c578c78d642a8f.ctex"]
 
 [params]
 
