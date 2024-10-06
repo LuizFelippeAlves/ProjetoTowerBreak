@@ -1,10 +1,11 @@
-[gd_scene load_steps=60 format=4 uid="uid://6hqeqbm3ifq"]
+[gd_scene load_steps=72 format=4 uid="uid://6hqeqbm3ifq"]
 
 [ext_resource type="Texture2D" uid="uid://bv6seowfsvhjv" path="res://assets/TileSetsAreas/Area - 0/Fundo area inicial.png" id="1_i6xxf"]
 [ext_resource type="Texture2D" uid="uid://ckht4lbuoe3rl" path="res://assets/TileSetsAreas/Area - 0/Tileset Area Inicial.png" id="2_crl7t"]
 [ext_resource type="Texture2D" uid="uid://kfjveew5jpyr" path="res://assets/TileSetsAreas/Area - 1/Fundo Area1.png" id="3_knupg"]
 [ext_resource type="Texture2D" uid="uid://lqxi0m2l1gv0" path="res://assets/TileSetsAreas/Area - 1/TileSet(Area1).png" id="4_dd0ah"]
 [ext_resource type="PackedScene" uid="uid://camspvi8wpf5i" path="res://Util/Base player.tscn" id="5_unj8g"]
+[ext_resource type="Script" path="res://Scripts/golem.gd" id="6_q760l"]
 [ext_resource type="Texture2D" uid="uid://biq2o6la0aj3j" path="res://assets/Sprits/GolemAnimations/SpriteGlmAtqPilar.png" id="13_0pnld"]
 [ext_resource type="Texture2D" uid="uid://bwyrvksg3po33" path="res://assets/Sprits/GolemAnimations/SpriteGlmAtqProjetil.png" id="14_kxrfi"]
 [ext_resource type="Texture2D" uid="uid://bugvpvemww7hh" path="res://assets/Sprits/GolemAnimations/SpriteGlmParada.png" id="15_eql4w"]
@@ -1734,33 +1735,6 @@ tracks/1/keys = {
 "values": [0, 1, 2, 3, 5, 6, 7, 10]
 }
 
-[sub_resource type="Animation" id="Animation_1151a"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"AtqPilar"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
 [sub_resource type="Animation" id="Animation_dk5ge"]
 resource_name = "Attack_hand_attack"
 length = 2.5
@@ -1845,6 +1819,33 @@ tracks/1/keys = {
 "values": [0, 1, 2, 3, 4]
 }
 
+[sub_resource type="Animation" id="Animation_1151a"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"AtqPilar"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bof20"]
 _data = {
 "Attack_floor_attack": SubResource("Animation_82lek"),
@@ -1853,6 +1854,53 @@ _data = {
 "Idle": SubResource("Animation_43jhh"),
 "RESET": SubResource("Animation_1151a")
 }
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_67fex"]
+animation = &"Attack_floor_attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xqscq"]
+animation = &"Attack_hand_attack"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_e6e2i"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_an0ie"]
+state_machine_type = 2
+states/Attack_floor_attack/node = SubResource("AnimationNodeAnimation_67fex")
+states/Attack_floor_attack/position = Vector2(408, 68)
+states/Attack_hand_attack/node = SubResource("AnimationNodeAnimation_xqscq")
+states/Attack_hand_attack/position = Vector2(408, 163)
+transitions = ["Start", "Attack_floor_attack", SubResource("AnimationNodeStateMachineTransition_e6e2i")]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_3ch6c"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5yd4s"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7bweb"]
+advance_mode = 2
+advance_condition = &"can_run"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_u5622"]
+states/Idle/node = SubResource("AnimationNodeAnimation_5yd4s")
+states/Idle/position = Vector2(391, 100)
+states/Start/position = Vector2(169, 100)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_7bweb")]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_sawib"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_o7spm"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_lnh5q"]
+states/Attack/node = SubResource("AnimationNodeStateMachine_an0ie")
+states/Attack/position = Vector2(542, 50)
+states/AttackGroup/node = SubResource("AnimationNodeStateMachine_3ch6c")
+states/AttackGroup/position = Vector2(669, 191)
+states/Movement/node = SubResource("AnimationNodeStateMachine_u5622")
+states/Movement/position = Vector2(344, 100)
+transitions = ["Start", "Movement", SubResource("AnimationNodeStateMachineTransition_sawib"), "Attack", "Movement", SubResource("AnimationNodeStateMachineTransition_o7spm")]
 
 [node name="Mundo" type="Node2D"]
 
@@ -1886,6 +1934,7 @@ position = Vector2(503, 226)
 scale = Vector2(-1, 1)
 collision_layer = 4
 collision_mask = 7
+script = ExtResource("6_q760l")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Golem"]
 position = Vector2(1.25, 2)
@@ -1902,6 +1951,11 @@ libraries = {
 "": SubResource("AnimationLibrary_bof20")
 }
 
+[node name="AnimationTree" type="AnimationTree" parent="Golem"]
+tree_root = SubResource("AnimationNodeStateMachine_lnh5q")
+anim_player = NodePath("../AnimationPlayer")
+parameters/Movement/conditions/can_run = false
+
 [node name="timers" type="Node2D" parent="Golem"]
 
 [node name="MovementTimer" type="Timer" parent="Golem/timers"]
@@ -1917,17 +1971,20 @@ one_shot = true
 one_shot = true
 
 [node name="Visao" type="RayCast2D" parent="Golem"]
+light_mask = 4
+visibility_layer = 7
 position = Vector2(15, -13)
 target_position = Vector2(455, 27)
 
-[node name="Positions" type="Node2D" parent="Golem"]
+[node name="Miras" type="Node2D" parent="Golem"]
+position = Vector2(24, 9)
+scale = Vector2(576.596, 97.2538)
+
+[node name="MiraArmAttack" type="Marker2D" parent="Golem/Miras"]
+position = Vector2(0.00693726, -0.0102824)
+scale = Vector2(38.1905, -14.6169)
+
+[node name="MiraFloorAttack" type="Marker2D" parent="Golem/Miras"]
+position = Vector2(-0.0364206, 0.205647)
 
 [node name="Areas" type="Node2D" parent="Golem"]
-
-[node name="Influencia" type="Area2D" parent="Golem/Areas"]
-
-[node name="Shape" type="CollisionShape2D" parent="Golem/Areas/Influencia"]
-
-[node name="Interacao" type="Area2D" parent="Golem/Areas"]
-
-[node name="Shape" type="CollisionShape2D" parent="Golem/Areas/Interacao"]
