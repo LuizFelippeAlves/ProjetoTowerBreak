@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=4 uid="uid://6hqeqbm3ifq"]
+[gd_scene load_steps=71 format=4 uid="uid://6hqeqbm3ifq"]
 
 [ext_resource type="Texture2D" uid="uid://bv6seowfsvhjv" path="res://assets/TileSetsAreas/Area - 0/Fundo area inicial.png" id="1_i6xxf"]
 [ext_resource type="Texture2D" uid="uid://ckht4lbuoe3rl" path="res://assets/TileSetsAreas/Area - 0/Tileset Area Inicial.png" id="2_crl7t"]
@@ -1854,52 +1854,50 @@ _data = {
 "RESET": SubResource("Animation_1151a")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_67fex"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bd3vw"]
 animation = &"Attack_floor_attack"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xqscq"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_btaih"]
 animation = &"Attack_hand_attack"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_e6e2i"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7syra"]
 advance_mode = 2
 
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_an0ie"]
-state_machine_type = 2
-states/Attack_floor_attack/node = SubResource("AnimationNodeAnimation_67fex")
-states/Attack_floor_attack/position = Vector2(408, 68)
-states/Attack_hand_attack/node = SubResource("AnimationNodeAnimation_xqscq")
-states/Attack_hand_attack/position = Vector2(408, 163)
-transitions = ["Start", "Attack_floor_attack", SubResource("AnimationNodeStateMachineTransition_e6e2i")]
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_ewbpi"]
+states/Attack_floor_attack/node = SubResource("AnimationNodeAnimation_bd3vw")
+states/Attack_floor_attack/position = Vector2(435, 180)
+states/Attack_hand_attack/node = SubResource("AnimationNodeAnimation_btaih")
+states/Attack_hand_attack/position = Vector2(435, 73)
+transitions = ["Start", "Attack_hand_attack", SubResource("AnimationNodeStateMachineTransition_7syra")]
 
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_3ch6c"]
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_hrgqy"]
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5yd4s"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ps5ib"]
 animation = &"Idle"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7bweb"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dsfcb"]
 advance_mode = 2
 advance_condition = &"can_run"
 
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_u5622"]
-states/Idle/node = SubResource("AnimationNodeAnimation_5yd4s")
-states/Idle/position = Vector2(391, 100)
-states/Start/position = Vector2(169, 100)
-transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_7bweb")]
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_33lvg"]
+states/Idle/node = SubResource("AnimationNodeAnimation_ps5ib")
+states/Idle/position = Vector2(334, 68)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_dsfcb")]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_sawib"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4euy6"]
 advance_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_o7spm"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0a22a"]
 advance_mode = 2
 
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_lnh5q"]
-states/Attack/node = SubResource("AnimationNodeStateMachine_an0ie")
-states/Attack/position = Vector2(542, 50)
-states/AttackGroup/node = SubResource("AnimationNodeStateMachine_3ch6c")
-states/AttackGroup/position = Vector2(669, 191)
-states/Movement/node = SubResource("AnimationNodeStateMachine_u5622")
-states/Movement/position = Vector2(344, 100)
-transitions = ["Start", "Movement", SubResource("AnimationNodeStateMachineTransition_sawib"), "Attack", "Movement", SubResource("AnimationNodeStateMachineTransition_o7spm")]
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_t7clp"]
+states/Attack/node = SubResource("AnimationNodeStateMachine_ewbpi")
+states/Attack/position = Vector2(557, 44)
+states/AttackGroup/node = SubResource("AnimationNodeStateMachine_hrgqy")
+states/AttackGroup/position = Vector2(621, 192)
+states/Movement/node = SubResource("AnimationNodeStateMachine_33lvg")
+states/Movement/position = Vector2(395, 100)
+transitions = ["Start", "Movement", SubResource("AnimationNodeStateMachineTransition_4euy6"), "Attack", "Movement", SubResource("AnimationNodeStateMachineTransition_0a22a")]
 
 [node name="Mundo" type="Node2D"]
 
@@ -1929,11 +1927,10 @@ tile_map_data = PackedByteArray("AAACAAQAAwAAAAQAAAACAAYAAwAAAAYAAAACAAcAAwAAAAc
 tile_set = SubResource("TileSet_60kdq")
 
 [node name="Golem" type="CharacterBody2D" parent="."]
-position = Vector2(503, 226)
+position = Vector2(559, 221)
 scale = Vector2(-1, 1)
 collision_layer = 4
 collision_mask = 7
-script = ExtResource("6_q760l")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Golem"]
 position = Vector2(1.25, 2)
@@ -1951,7 +1948,7 @@ libraries = {
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="Golem"]
-tree_root = SubResource("AnimationNodeStateMachine_lnh5q")
+tree_root = SubResource("AnimationNodeStateMachine_t7clp")
 anim_player = NodePath("../AnimationPlayer")
 parameters/Movement/conditions/can_run = false
 
@@ -1970,20 +1967,23 @@ one_shot = true
 one_shot = true
 
 [node name="Visao" type="RayCast2D" parent="Golem"]
-light_mask = 4
-visibility_layer = 7
 position = Vector2(15, -13)
 target_position = Vector2(455, 27)
 
-[node name="Miras" type="Node2D" parent="Golem"]
-position = Vector2(24, 9)
-scale = Vector2(576.596, 97.2538)
+[node name="Mira" type="Node2D" parent="Golem"]
 
-[node name="MiraArmAttack" type="Marker2D" parent="Golem/Miras"]
-position = Vector2(0.00693726, -0.0102824)
-scale = Vector2(38.1905, -14.6169)
+[node name="ArmAttack" type="Marker2D" parent="Golem/Mira"]
+position = Vector2(23, 9)
 
-[node name="MiraFloorAttack" type="Marker2D" parent="Golem/Miras"]
-position = Vector2(-0.0364206, 0.205647)
+[node name="FloorAttack" type="Marker2D" parent="Golem/Mira"]
+position = Vector2(3, 32)
 
 [node name="Areas" type="Node2D" parent="Golem"]
+
+[node name="Influencia" type="Area2D" parent="Golem/Areas"]
+
+[node name="Shape" type="CollisionShape2D" parent="Golem/Areas/Influencia"]
+
+[node name="Interacao" type="Area2D" parent="Golem/Areas"]
+
+[node name="Shape" type="CollisionShape2D" parent="Golem/Areas/Interacao"]
