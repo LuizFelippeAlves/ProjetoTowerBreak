@@ -1,14 +1,163 @@
-[gd_scene load_steps=18 format=4 uid="uid://mehgf8vs1uqs"]
+[gd_scene load_steps=24 format=4 uid="uid://pov3hlmvafkv"]
 
-[ext_resource type="Texture2D" uid="uid://bv6seowfsvhjv" path="res://assets/TileSetsAreas/Area - 0/Fundo area inicial.png" id="1_kooqx"]
-[ext_resource type="Texture2D" uid="uid://ckht4lbuoe3rl" path="res://assets/TileSetsAreas/Area - 0/Tileset Area Inicial.png" id="2_wl14o"]
-[ext_resource type="PackedScene" uid="uid://camspvi8wpf5i" path="res://Util/Base player.tscn" id="3_jhsw7"]
-[ext_resource type="Texture2D" uid="uid://dyuwyl36rlory" path="res://assets/TileSetsAreas/Area - 0/TileSet Area Inicial (1).png" id="3_lidg0"]
-[ext_resource type="Texture2D" uid="uid://dgwc0os2lmbjf" path="res://assets/Effects,Hud,Itens/Fogueira-Sprit.png" id="4_hmme5"]
-[ext_resource type="PackedScene" uid="uid://ohauqgqrgx7b" path="res://Util/PotaoTroca.tscn" id="5_w7e3m"]
+[ext_resource type="Script" path="res://Scripts/cut_scene_andar_0.gd" id="1_ombqn"]
+[ext_resource type="Texture2D" uid="uid://bv6seowfsvhjv" path="res://assets/TileSetsAreas/Area - 0/Fundo area inicial.png" id="1_sg7fk"]
+[ext_resource type="Texture2D" uid="uid://ckht4lbuoe3rl" path="res://assets/TileSetsAreas/Area - 0/Tileset Area Inicial.png" id="2_bnxyk"]
+[ext_resource type="Texture2D" uid="uid://dyuwyl36rlory" path="res://assets/TileSetsAreas/Area - 0/TileSet Area Inicial (1).png" id="3_o215o"]
+[ext_resource type="Texture2D" uid="uid://dgwc0os2lmbjf" path="res://assets/Effects,Hud,Itens/Fogueira-Sprit.png" id="4_qjhal"]
+[ext_resource type="Texture2D" uid="uid://db8p4425x81hq" path="res://assets/Sprits/PlayerAnimations/SpriteAndando.png" id="5_cbvf0"]
+[ext_resource type="Texture2D" uid="uid://boto0gt27bm5y" path="res://assets/TileSetsAreas/Area - 0/Portao.png" id="6_cftrk"]
+[ext_resource type="PackedScene" uid="uid://ohauqgqrgx7b" path="res://Util/PotaoTroca.tscn" id="8_m1fho"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ffrow"]
-texture = ExtResource("1_kooqx")
+[sub_resource type="Animation" id="Animation_6fi2t"]
+resource_name = "Cena0"
+length = 7.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7, 6.1, 6.56667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D/player:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.766667, 0.933333, 1.13333, 1.33333, 1.53333, 1.7, 1.9, 2.1, 2.33333, 2.5, 2.7, 2.9, 5.9, 6, 6.1, 6.26667, 6.33333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 1, 3, 0, 1, 1, 3, 0, 1, 1, 3, 0, 1, 2, 1, 2]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Node2D/player:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.766667, 3.1, 6, 6.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(280, 245), Vector2(508, 245), Vector2(508, 245), Vector2(534, 245)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(3.73333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"apply_shake"
+}]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Node2D/Portao:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(4, 4.53333, 5.03333, 5.53333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Portal:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(6.5, 7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(576, 229), Vector2(532, 235)]
+}
+
+[sub_resource type="Animation" id="Animation_5t2p6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D/player:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Node2D/player:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(280, 245)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Node2D/Portao:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Portal:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(576, 229)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a6enb"]
+_data = {
+"Cena0": SubResource("Animation_6fi2t"),
+"RESET": SubResource("Animation_5t2p6")
+}
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hqy7u"]
+texture = ExtResource("1_sg7fk")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 1:0/0 = 0
@@ -811,8 +960,8 @@ texture_region_size = Vector2i(32, 32)
 39:19/0 = 0
 0:5/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3xtbk"]
-texture = ExtResource("2_wl14o")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gwetm"]
+texture = ExtResource("2_bnxyk")
 texture_region_size = Vector2i(32, 32)
 3:0/0 = 0
 4:0/0 = 0
@@ -1162,8 +1311,8 @@ texture_region_size = Vector2i(32, 32)
 0:6/0 = 0
 0:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_efvq4"]
-texture = ExtResource("3_lidg0")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_aoamw"]
+texture = ExtResource("3_o215o")
 texture_region_size = Vector2i(32, 32)
 1:0/0 = 0
 2:0/0 = 0
@@ -1288,34 +1437,34 @@ texture_region_size = Vector2i(32, 32)
 8:9/0 = 0
 9:9/0 = 0
 
-[sub_resource type="TileSet" id="TileSet_60kdq"]
+[sub_resource type="TileSet" id="TileSet_dah35"]
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_ffrow")
-sources/1 = SubResource("TileSetAtlasSource_3xtbk")
-sources/2 = SubResource("TileSetAtlasSource_efvq4")
+sources/0 = SubResource("TileSetAtlasSource_hqy7u")
+sources/1 = SubResource("TileSetAtlasSource_gwetm")
+sources/2 = SubResource("TileSetAtlasSource_aoamw")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fevts"]
-atlas = ExtResource("4_hmme5")
+atlas = ExtResource("4_qjhal")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_or6fk"]
-atlas = ExtResource("4_hmme5")
+atlas = ExtResource("4_qjhal")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fyqwq"]
-atlas = ExtResource("4_hmme5")
+atlas = ExtResource("4_qjhal")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_12wsp"]
-atlas = ExtResource("4_hmme5")
+atlas = ExtResource("4_qjhal")
 region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2nqjk"]
-atlas = ExtResource("4_hmme5")
+atlas = ExtResource("4_qjhal")
 region = Rect2(128, 0, 32, 32)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_xqjcc"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_gogvb"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -1338,64 +1487,86 @@ animations = [{
 "speed": 3.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sundc"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_roimy"]
 radius = 7.0
 height = 22.0
 
-[node name="Fase1" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fm2wf"]
+
+[node name="CutSceneAndar0" type="Node2D" node_paths=PackedStringArray("animation_play", "camera")]
+modulate = Color(0, 0, 0, 1)
+script = ExtResource("1_ombqn")
+animation_play = NodePath("AnimationPlayer")
+camera = NodePath("Camera2D")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_a6enb")
+}
+autoplay = "Cena0"
 
 [node name="TileMapAndar0" type="Node2D" parent="."]
 
 [node name="chao" type="TileMapLayer" parent="TileMapAndar0"]
 use_parent_material = true
 tile_map_data = PackedByteArray("AAAAAAkAAQAAAAcAAAABAAkAAQABAAcAAAACAAkAAQABAAcAAAADAAkAAQABAAcAAAAEAAkAAQABAAcAAAAGAAkAAQABAAcAAAAFAAkAAQABAAcAAAAHAAkAAQABAAcAAAAIAAkAAQABAAcAAAAJAAkAAQABAAcAAAAKAAkAAQABAAcAAAALAAkAAQABAAcAAAAMAAkAAQABAAcAAAANAAkAAQABAAcAAAAOAAkAAQABAAcAAAAPAAkAAQABAAcAAAAQAAkAAQABAAcAAAARAAkAAQABAAcAAAASAAkAAQABAAcAAAATAAkAAQACAAcAAAAAAAgAAQAAAAYAAAABAAgAAQABAAYAAAACAAgAAQABAAYAAAADAAgAAQABAAYAAAAEAAgAAQABAAYAAAAFAAgAAQABAAYAAAAGAAgAAQABAAYAAAAHAAgAAQABAAYAAAAIAAgAAQABAAYAAAAJAAgAAQABAAYAAAAKAAgAAQABAAYAAAALAAgAAQABAAYAAAAMAAgAAQABAAYAAAANAAgAAQABAAYAAAAOAAgAAQABAAYAAAAPAAgAAQABAAYAAAAQAAgAAQABAAYAAAARAAgAAQABAAYAAAASAAgAAQABAAYAAAATAAgAAQACAAYAAAAAAAcAAQAEAAUAAAAAAAQAAQAEAAIAAAAAAAUAAQAEAAMAAAAAAAYAAQAEAAQAAAABAAQAAQAFAAIAAAABAAUAAQAFAAMAAAABAAYAAQAFAAQAAAABAAcAAQAFAAUAAAACAAQAAQAGAAIAAAACAAUAAQAGAAMAAAACAAYAAQAGAAQAAAACAAcAAQAGAAUAAAADAAQAAQAHAAIAAAADAAUAAQAHAAMAAAADAAYAAQAHAAQAAAADAAcAAQAHAAUAAAAUAAkAAQAAAAcAAAAUAAgAAQAAAAcAAAAUAAcAAQAAAAcAAAAUAAYAAQAAAAcAAAAUAAUAAQAAAAcAAAAUAAQAAQAAAAcAAAAUAAMAAQAAAAcAAAAUAAIAAQAAAAcAAAAUAAEAAQAAAAcAAAAUAAAAAQAAAAcAAAD//wkAAQACAAcAAAD//wgAAQACAAcAAAD//wcAAQACAAcAAAD//wYAAQACAAcAAAD//wUAAQACAAcAAAD//wQAAQACAAcAAAD//wMAAQACAAcAAAD//wIAAQACAAcAAAD//wEAAQACAAcAAAD//wAAAQACAAcAAAA=")
-tile_set = SubResource("TileSet_60kdq")
+tile_set = SubResource("TileSet_dah35")
 
 [node name="Ceu" type="TileMapLayer" parent="TileMapAndar0"]
 z_index = -2
 use_parent_material = true
 tile_map_data = PackedByteArray("AAATAAAAAAATAAAAAAASAAEAAAASAAEAAAARAAEAAAARAAEAAAARAAAAAAARAAAAAAAQAAAAAAAQAAAAAAAPAAAAAAAPAAAAAAASAAAAAAASAAAAAAATAAEAAAATAAEAAAATAAIAAAATAAIAAAASAAIAAAASAAIAAAASAAMAAAASAAMAAAARAAMAAAARAAMAAAAQAAMAAAAQAAMAAAAQAAIAAAAQAAIAAAAPAAIAAAAPAAIAAAAOAAIAAAAOAAIAAAAOAAEAAAAOAAEAAAAOAAAAAAAOAAAAAAATAAMAAAATAAMAAAARAAIAAAARAAIAAAAQAAEAAAAQAAEAAAAPAAEAAAAPAAEAAAASAAQAAAASAAQAAAASAAUAAAASAAUAAAATAAUAAAATAAUAAAATAAQAAAATAAQAAAARAAQAAAARAAQAAAAQAAQAAAAQAAQAAAAPAAMAAAAPAAMAAAANAAEAAAANAAEAAAANAAAAAAANAAAAAAAMAAAAAAAMAAAAAAAMAAEAAAAMAAEAAAAMAAIAAAAMAAIAAAAMAAMAAAAMAAMAAAANAAQAAAANAAQAAAAOAAQAAAAOAAQAAAAOAAUAAAAOAAUAAAAPAAUAAAAPAAUAAAAQAAUAAAAQAAUAAAAQAAYAAAAQAAYAAAARAAYAAAARAAYAAAARAAcAAAARAAcAAAASAAcAAAASAAcAAAATAAcAAAATAAcAAAATAAgAAAATAAgAAAATAAkAAAATAAkAAAASAAkAAAASAAkAAAASAAgAAAASAAgAAAASAAYAAAASAAYAAAATAAYAAAATAAYAAAAQAAcAAAAQAAcAAAAPAAcAAAAPAAcAAAAOAAcAAAAOAAcAAAAOAAgAAAAOAAgAAAAOAAkAAAAOAAkAAAANAAkAAAANAAkAAAAPAAgAAAAPAAgAAAARAAgAAAARAAgAAAAQAAgAAAAQAAgAAAAQAAkAAAAQAAkAAAAPAAkAAAAPAAkAAAARAAkAAAARAAkAAAANAAgAAAANAAgAAAAMAAgAAAAMAAgAAAALAAgAAAALAAgAAAANAAcAAAANAAcAAAAPAAYAAAAPAAYAAAAMAAcAAAAMAAcAAAALAAcAAAALAAcAAAAKAAgAAAAKAAgAAAAKAAcAAAAKAAcAAAAMAAYAAAAMAAYAAAANAAYAAAANAAYAAAANAAUAAAANAAUAAAARAAUAAAARAAUAAAALAAkAAAALAAkAAAAKAAkAAAAKAAkAAAAJAAkAAAAJAAkAAAAIAAkAAAAIAAkAAAAJAAgAAAAJAAgAAAAMAAkAAAAMAAkAAAAOAAYAAAAOAAYAAAAPAAQAAAAPAAQAAAANAAIAAAANAAIAAAANAAMAAAANAAMAAAAMAAUAAAAMAAUAAAAOAAMAAAAOAAMAAAALAAYAAAALAAYAAAAKAAYAAAAKAAYAAAAJAAYAAAAJAAYAAAAIAAYAAAAIAAYAAAAKAAUAAAAKAAUAAAALAAUAAAALAAUAAAAMAAQAAAAMAAQAAAAIAAcAAAAIAAcAAAAHAAcAAAAHAAcAAAAGAAcAAAAGAAcAAAAGAAYAAAAGAAYAAAAHAAYAAAAHAAYAAAAHAAUAAAAHAAUAAAAIAAUAAAAIAAUAAAAJAAUAAAAJAAUAAAAJAAQAAAAJAAQAAAAKAAQAAAAKAAQAAAALAAQAAAALAAQAAAAIAAgAAAAIAAgAAAAHAAkAAAAHAAkAAAAGAAkAAAAGAAkAAAACAAkAAAACAAkAAAADAAgAAAADAAgAAAAEAAcAAAAEAAcAAAAFAAcAAAAFAAcAAAAEAAgAAAAEAAgAAAAFAAgAAAAFAAgAAAAGAAgAAAAGAAgAAAAHAAgAAAAHAAgAAAADAAkAAAADAAkAAAABAAkAAAABAAkAAAAAAAkAAAAAAAkAAAAAAAgAAAAAAAgAAAABAAgAAAABAAgAAAACAAgAAAACAAgAAAAEAAkAAAAEAAkAAAAFAAkAAAAFAAkAAAACAAcAAAACAAcAAAACAAYAAAACAAYAAAADAAYAAAADAAYAAAABAAYAAAABAAYAAAAAAAYAAAAAAAYAAAAEAAYAAAAEAAYAAAAFAAUAAAAFAAUAAAAGAAUAAAAGAAUAAAADAAcAAAADAAcAAAAFAAYAAAAFAAYAAAABAAcAAAABAAcAAAAAAAcAAAAAAAcAAAAEAAUAAAAEAAUAAAADAAUAAAADAAUAAAACAAUAAAACAAUAAAABAAUAAAABAAUAAAABAAQAAAABAAQAAAACAAQAAAACAAQAAAADAAQAAAADAAQAAAAEAAMAAAAEAAMAAAAFAAMAAAAFAAMAAAAGAAMAAAAGAAMAAAAHAAMAAAAHAAMAAAAIAAMAAAAIAAMAAAAJAAMAAAAJAAMAAAAHAAQAAAAHAAQAAAAGAAQAAAAGAAQAAAAFAAQAAAAFAAQAAAAAAAUAAAAAAAUAAAAEAAQAAAAEAAQAAAAIAAQAAAAIAAQAAAALAAMAAAALAAMAAAALAAIAAAALAAIAAAAKAAIAAAAKAAIAAAAIAAIAAAAIAAIAAAAJAAIAAAAJAAIAAAAKAAEAAAAKAAEAAAALAAEAAAALAAEAAAAKAAMAAAAKAAMAAAADAAMAAAADAAMAAAADAAIAAAADAAIAAAAEAAIAAAAEAAIAAAAFAAEAAAAFAAEAAAAGAAEAAAAGAAEAAAAHAAEAAAAHAAEAAAAIAAEAAAAIAAEAAAAIAAAAAAAIAAAAAAAJAAAAAAAJAAAAAAAKAAAAAAAKAAAAAAAJAAEAAAAJAAEAAAAHAAIAAAAHAAIAAAAGAAIAAAAGAAIAAAAFAAIAAAAFAAIAAAAEAAEAAAAEAAEAAAAFAAAAAAAFAAAAAAAGAAAAAAAGAAAAAAAHAAAAAAAHAAAAAAALAAAAAAALAAAAAAADAAEAAAADAAEAAAACAAEAAAACAAEAAAACAAAAAAACAAAAAAADAAAAAAADAAAAAAABAAIAAAABAAIAAAAAAAIAAAAAAAIAAAAAAAEAAAAAAAEAAAABAAEAAAABAAEAAAAAAAAAAAAAAAAAAAABAAAAAAABAAAAAAAAAAMAAAAAAAMAAAAAAAQAAAAAAAQAAAABAAMAAAABAAMAAAAEAAAAAAAEAAAAAAACAAIAAAACAAIAAAACAAMAAAACAAMAAAAJAAcAAAAJAAcAAAA=")
-tile_set = SubResource("TileSet_60kdq")
+tile_set = SubResource("TileSet_dah35")
 
 [node name="montanhas" type="TileMapLayer" parent="TileMapAndar0"]
 z_index = -1
 use_parent_material = true
 tile_map_data = PackedByteArray("AAAKAAQAAQAMAAEAAAALAAMAAQANAAAAAAALAAQAAQANAAEAAAAMAAMAAQAOAAAAAAAMAAQAAQAOAAEAAAANAAMAAQAPAAAAAAANAAQAAQAPAAEAAAAOAAMAAQAQAAAAAAAOAAQAAQAQAAEAAAAPAAMAAQARAAAAAAAPAAQAAQARAAEAAAAQAAMAAQASAAAAAAAQAAQAAQASAAEAAAARAAMAAQATAAAAAAARAAQAAQATAAEAAAALAAUAAQADAAEAAAAMAAUAAQADAAEAAAANAAUAAQAEAAEAAAAOAAUAAQAFAAEAAAAPAAUAAQAGAAEAAAAQAAUAAQAHAAEAAAAMAAYAAQAEAAEAAAANAAYAAQAFAAEAAAAOAAYAAQAGAAEAAAAPAAYAAQAHAAEAAAAQAAYAAQAHAAEAAAALAAYAAQADAAEAAAALAAcAAQADAAEAAAAMAAcAAQADAAEAAAANAAcAAQAEAAEAAAAOAAcAAQAFAAEAAAAPAAcAAQAGAAEAAAAQAAcAAQAHAAEAAAASAAYAAQAKAAAAAAASAAcAAQAKAAEAAAARAAcAAQARAAEAAAARAAYAAQARAAEAAAARAAUAAQARAAEAAAAUAAQAAQATAAAAAAAAAAIAAQACAAAAAAABAAIAAQADAAAAAAACAAIAAQAEAAAAAAADAAIAAQAFAAAAAAAEAAIAAQAGAAAAAAAFAAIAAQAHAAAAAAAGAAIAAQAIAAAAAAAHAAIAAQAJAAAAAAAAAAMAAQACAAEAAAABAAMAAQADAAEAAAACAAMAAQAEAAEAAAADAAMAAQAFAAEAAAAEAAMAAQAGAAEAAAAFAAMAAQAHAAEAAAAGAAMAAQAIAAEAAAAHAAMAAQAJAAEAAAAAAAQAAQACAAEAAAABAAQAAQADAAEAAAACAAQAAQAEAAEAAAADAAQAAQAFAAEAAAAEAAQAAQAGAAEAAAAFAAQAAQAHAAEAAAAAAAUAAQACAAEAAAABAAUAAQADAAEAAAACAAUAAQAEAAEAAAADAAUAAQAFAAEAAAAEAAUAAQAGAAEAAAAFAAUAAQAHAAEAAAAAAAYAAQACAAEAAAABAAYAAQADAAEAAAACAAYAAQAEAAEAAAADAAYAAQAFAAEAAAAEAAYAAQAGAAEAAAAFAAYAAQAHAAEAAAAAAAcAAQACAAEAAAABAAcAAQADAAEAAAACAAcAAQAEAAEAAAADAAcAAQAFAAEAAAAEAAcAAQAGAAEAAAAFAAcAAQAHAAEAAAAGAAQAAgAIAAIAAAAGAAUAAgAIAAMAAAAGAAYAAgAKAAAAAAAGAAcAAgAKAAEAAAAKAAMAAQAMAAAAAAAKAAUAAgAMAAIAAAATAAQAAQASAAAAAAATAAUAAQASAAEAAAATAAYAAQAHAAEAAAATAAcAAQAHAAEAAAAKAAYAAgAMAAIAAAAKAAcAAgAMAAMAAAA=")
-tile_set = SubResource("TileSet_60kdq")
+tile_set = SubResource("TileSet_dah35")
 
 [node name="nuvens e lua" type="TileMapLayer" parent="TileMapAndar0"]
 use_parent_material = true
 tile_map_data = PackedByteArray("AAAAAAAAAQAHAAgAAAAAAAEAAQAHAAkAAAACAAEAAQAEAAkAAAACAAAAAQAEAAgAAAADAAEAAQAFAAkAAAADAAAAAQAFAAgAAAAGAAAAAQAIAAkAAAAHAAAAAQAJAAkAAAAJAAAAAQAGAAgAAAAKAAAAAQAHAAgAAAAKAAEAAQAHAAkAAAAJAAEAAQAGAAkAAAAMAAAAAQAAAAgAAAAPAAAAAQAIAAgAAAAPAAEAAQAIAAkAAAAQAAEAAQAJAAkAAAAQAAAAAQAJAAgAAAA=")
-tile_set = SubResource("TileSet_60kdq")
+tile_set = SubResource("TileSet_dah35")
 
 [node name="torre " type="TileMapLayer" parent="TileMapAndar0"]
 use_parent_material = true
 tile_map_data = PackedByteArray("AAAQAAEAAQAAAAMAAAARAAEAAQABAAMAAAASAAEAAQACAAMAAAASAAIAAQACAAQAAAARAAIAAQABAAQAAAARAAMAAQABAAUAAAAQAAIAAQAAAAQAAAAQAAAAAQAAAAIAAAARAAAAAQABAAIAAAASAAAAAQACAAIAAAATAAAAAQADAAIAAAATAAEAAQADAAMAAAATAAIAAQADAAQAAAATAAMAAQADAAUAAAASAAMAAQACAAUAAAASAAQAAQACAAIAAAARAAQAAQABAAIAAAAQAAQAAQAAAAIAAAAQAAMAAQAAAAUAAAATAAQAAQADAAIAAAATAAUAAQADAAMAAAATAAYAAQADAAQAAAASAAYAAQACAAQAAAARAAYAAQABAAQAAAAQAAUAAQAAAAMAAAAQAAYAAQAAAAQAAAAQAAcAAQAAAAUAAAARAAcAAQABAAUAAAASAAUAAQACAAMAAAARAAUAAQABAAMAAAATAAcAAQADAAUAAAASAAcAAQACAAUAAAA=")
-tile_set = SubResource("TileSet_60kdq")
-
-[node name="portao" type="TileMapLayer" parent="TileMapAndar0"]
-use_parent_material = true
-tile_map_data = PackedByteArray("AAARAAcAAgAEAAcAAAARAAYAAgAEAAYAAAASAAYAAgAFAAYAAAASAAcAAgAFAAcAAAA=")
-tile_set = SubResource("TileSet_60kdq")
-
-[node name="CharacterBody2D" parent="." groups=["Player"] instance=ExtResource("3_jhsw7")]
-position = Vector2(20, 244)
-collision_mask = 3
+tile_set = SubResource("TileSet_dah35")
 
 [node name="Fugueira" type="Area2D" parent="."]
 position = Vector2(52, 246)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Fugueira"]
-sprite_frames = SubResource("SpriteFrames_xqjcc")
+sprite_frames = SubResource("SpriteFrames_gogvb")
 animation = &"Idle"
 autoplay = "Idle"
-frame_progress = 0.429756
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Fugueira"]
-shape = SubResource("CapsuleShape2D_sundc")
+shape = SubResource("CapsuleShape2D_roimy")
 
-[node name="Portal" parent="." instance=ExtResource("5_w7e3m")]
-position = Vector2(328, 228)
-collision_layer = 2
-collision_mask = 3
-nextScene = "res://Scenes/cut_scene_andar_0.tscn"
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="player" type="Sprite2D" parent="Node2D"]
+position = Vector2(280, 245)
+texture = ExtResource("5_cbvf0")
+hframes = 4
+
+[node name="Portao" type="Sprite2D" parent="Node2D"]
+position = Vector2(576, 224)
+texture = ExtResource("6_cftrk")
+hframes = 4
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(463, 169)
+zoom = Vector2(1.835, 1.835)
+
+[node name="Portal" parent="." instance=ExtResource("8_m1fho")]
+position = Vector2(576, 229)
+nextScene = "res://Scenes/cut_scene_andar_1.tscn"
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." groups=["Player"]]
+position = Vector2(508, 246)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("RectangleShape2D_fm2wf")
