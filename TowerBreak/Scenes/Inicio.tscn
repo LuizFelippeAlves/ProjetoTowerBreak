@@ -1379,7 +1379,7 @@ tile_map_data = PackedByteArray("AAARAAcAAgAEAAcAAAARAAYAAgAEAAYAAAASAAYAAgAFAAY
 tile_set = SubResource("TileSet_60kdq")
 
 [node name="CharacterBody2D" parent="." groups=["Player"] instance=ExtResource("3_jhsw7")]
-position = Vector2(20, 244)
+position = Vector2(25, 238)
 collision_mask = 3
 
 [node name="Fugueira" type="Area2D" parent="."]
@@ -1399,3 +1399,7 @@ position = Vector2(328, 228)
 collision_layer = 2
 collision_mask = 3
 nextScene = "res://Scenes/cut_scene_andar_0.tscn"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(320, 140)
+zoom = Vector2(1, 1.145)

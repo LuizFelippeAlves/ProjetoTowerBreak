@@ -1902,10 +1902,10 @@ transitions = ["Start", "Movement", SubResource("AnimationNodeStateMachineTransi
 [node name="Mundo" type="Node2D"]
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("5_unj8g")]
-position = Vector2(30, 243)
+position = Vector2(36, 238)
 rotation = 3.14159
 scale = Vector2(-1, -1)
-collision_mask = 7
+collision_mask = 3
 
 [node name="TileMapAndar1" type="Node2D" parent="."]
 
@@ -1987,3 +1987,7 @@ position = Vector2(3, 32)
 [node name="Interacao" type="Area2D" parent="Golem/Areas"]
 
 [node name="Shape" type="CollisionShape2D" parent="Golem/Areas/Interacao"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(320, 140)
+zoom = Vector2(1, 1.145)

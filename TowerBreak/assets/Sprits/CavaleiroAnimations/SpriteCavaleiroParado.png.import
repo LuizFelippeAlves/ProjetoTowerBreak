@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c550e8ph6c04u"
-path="res://.godot/imported/SpriteAtaque.png-c7b3e7de298ade06b7b0a0a18878c3ee.ctex"
+uid="uid://dkupryd5xr187"
+path="res://.godot/imported/SpriteCavaleiroParado.png-9a78ba1137e9a95e34c249672950623a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprits/PlayerAnimations/SpriteAtaque.png"
-dest_files=["res://.godot/imported/SpriteAtaque.png-c7b3e7de298ade06b7b0a0a18878c3ee.ctex"]
+source_file="res://assets/Sprits/CavaleiroAnimations/SpriteCavaleiroParado.png"
+dest_files=["res://.godot/imported/SpriteCavaleiroParado.png-9a78ba1137e9a95e34c249672950623a.ctex"]
 
 [params]
 

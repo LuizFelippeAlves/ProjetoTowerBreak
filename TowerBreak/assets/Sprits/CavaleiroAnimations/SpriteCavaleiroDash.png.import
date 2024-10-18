@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://8y4vmisidfcc"
-path="res://.godot/imported/SpriteDano.png-8fe949c352a5a71ae919f3eb55f57e36.ctex"
+uid="uid://dhl35hju5i14g"
+path="res://.godot/imported/SpriteCavaleiroDash.png-3f71d5d8bd8df9ab6e0a150fd247aa3e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprits/PlayerAnimations/SpriteDano.png"
-dest_files=["res://.godot/imported/SpriteDano.png-8fe949c352a5a71ae919f3eb55f57e36.ctex"]
+source_file="res://assets/Sprits/CavaleiroAnimations/SpriteCavaleiroDash.png"
+dest_files=["res://.godot/imported/SpriteCavaleiroDash.png-3f71d5d8bd8df9ab6e0a150fd247aa3e.ctex"]
 
 [params]
 

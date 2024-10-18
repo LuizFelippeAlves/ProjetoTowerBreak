@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://fu6ca5umv6ay"
-path="res://.godot/imported/SpriteParado.png-f2b6e09f11a787c0ef9a7450755ac3af.ctex"
+uid="uid://dirfb3ipbsvwe"
+path="res://.godot/imported/SpriteCavaleiroCorrendo.png-6461b4aa292bb14cbd48cd75c293aff7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprits/PlayerAnimations/SpriteParado.png"
-dest_files=["res://.godot/imported/SpriteParado.png-f2b6e09f11a787c0ef9a7450755ac3af.ctex"]
+source_file="res://assets/Sprits/CavaleiroAnimations/SpriteCavaleiroCorrendo.png"
+dest_files=["res://.godot/imported/SpriteCavaleiroCorrendo.png-6461b4aa292bb14cbd48cd75c293aff7.ctex"]
 
 [params]
 
