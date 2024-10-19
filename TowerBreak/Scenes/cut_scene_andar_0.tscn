@@ -1,13 +1,14 @@
-[gd_scene load_steps=24 format=4 uid="uid://pov3hlmvafkv"]
+[gd_scene load_steps=25 format=4 uid="uid://pov3hlmvafkv"]
 
 [ext_resource type="Script" path="res://Scripts/cut_scene_andar_0.gd" id="1_ombqn"]
 [ext_resource type="Texture2D" uid="uid://bv6seowfsvhjv" path="res://assets/TileSetsAreas/Area - 0/Fundo area inicial.png" id="1_sg7fk"]
 [ext_resource type="Texture2D" uid="uid://ckht4lbuoe3rl" path="res://assets/TileSetsAreas/Area - 0/Tileset Area Inicial.png" id="2_bnxyk"]
 [ext_resource type="Texture2D" uid="uid://dyuwyl36rlory" path="res://assets/TileSetsAreas/Area - 0/TileSet Area Inicial (1).png" id="3_o215o"]
 [ext_resource type="Texture2D" uid="uid://dgwc0os2lmbjf" path="res://assets/Effects,Hud,Itens/Fogueira-Sprit.png" id="4_qjhal"]
-[ext_resource type="Texture2D" uid="uid://db8p4425x81hq" path="res://assets/Sprits/PlayerAnimations/SpriteAndando.png" id="5_cbvf0"]
 [ext_resource type="Texture2D" uid="uid://boto0gt27bm5y" path="res://assets/TileSetsAreas/Area - 0/Portao.png" id="6_cftrk"]
+[ext_resource type="Texture2D" uid="uid://dirfb3ipbsvwe" path="res://assets/Sprits/CavaleiroAnimations/SpriteCavaleiroCorrendo.png" id="6_x2l4w"]
 [ext_resource type="PackedScene" uid="uid://ohauqgqrgx7b" path="res://Util/PotaoTroca.tscn" id="8_m1fho"]
+[ext_resource type="Texture2D" uid="uid://dkupryd5xr187" path="res://assets/Sprits/CavaleiroAnimations/SpriteCavaleiroParado.png" id="8_t8wtm"]
 
 [sub_resource type="Animation" id="Animation_6fi2t"]
 resource_name = "Cena0"
@@ -19,7 +20,7 @@ tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.7, 6.1, 6.56667),
+"times": PackedFloat32Array(0, 0.7, 5.73333, 6.3),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Color(0, 0, 0, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(0, 0, 0, 1)]
@@ -27,26 +28,26 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Node2D/player:frame")
+tracks/1/path = NodePath("Node2D/playerAnda:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.766667, 0.933333, 1.13333, 1.33333, 1.53333, 1.7, 1.9, 2.1, 2.33333, 2.5, 2.7, 2.9, 5.9, 6, 6.1, 6.26667, 6.33333),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0.633333, 0.8, 1, 1.2, 1.4, 1.56667, 1.73333, 1.9, 2.06667, 2.23333, 2.4, 2.56667, 5.53333, 5.73333, 5.93333, 6.16667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 1, 3, 0, 1, 1, 3, 0, 1, 1, 3, 0, 1, 2, 1, 2]
+"values": [0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Node2D/player:position")
+tracks/2/path = NodePath("Node2D/playerAnda:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.766667, 3.1, 6, 6.5),
+"times": PackedFloat32Array(0.766667, 2.7, 5.53333, 6.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(280, 245), Vector2(508, 245), Vector2(508, 245), Vector2(534, 245)]
+"values": [Vector2(272, 238), Vector2(500, 238), Vector2(500, 238), Vector2(562, 238)]
 }
 tracks/3/type = "method"
 tracks/3/imported = false
@@ -86,6 +87,42 @@ tracks/5/keys = {
 "update": 0,
 "values": [Vector2(576, 229), Vector2(532, 235)]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Node2D/playerPara:frame")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(2.6, 2.83333, 3.06667, 3.3, 3.53333, 3.76667, 4, 4.23333, 4.46667, 4.7, 4.93333, 5.16667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Node2D/playerAnda:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 2.76667, 5.53333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Node2D/playerPara:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 2.73333, 5.53333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
 
 [sub_resource type="Animation" id="Animation_5t2p6"]
 length = 0.001
@@ -104,7 +141,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Node2D/player:frame")
+tracks/1/path = NodePath("Node2D/playerAnda:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -116,7 +153,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Node2D/player:position")
+tracks/2/path = NodePath("Node2D/playerAnda:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -148,6 +185,42 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(576, 229)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Node2D/playerPara:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Node2D/playerAnda:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Node2D/playerPara:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_a6enb"]
@@ -1547,15 +1620,22 @@ shape = SubResource("CapsuleShape2D_roimy")
 
 [node name="Node2D" type="Node2D" parent="."]
 
-[node name="player" type="Sprite2D" parent="Node2D"]
+[node name="playerAnda" type="Sprite2D" parent="Node2D"]
+visible = false
 position = Vector2(280, 245)
-texture = ExtResource("5_cbvf0")
+texture = ExtResource("6_x2l4w")
 hframes = 4
 
 [node name="Portao" type="Sprite2D" parent="Node2D"]
 position = Vector2(576, 224)
 texture = ExtResource("6_cftrk")
 hframes = 4
+
+[node name="playerPara" type="Sprite2D" parent="Node2D"]
+visible = false
+position = Vector2(500, 238)
+texture = ExtResource("8_t8wtm")
+hframes = 3
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(463, 169)
