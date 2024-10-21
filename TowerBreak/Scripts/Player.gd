@@ -28,11 +28,13 @@ var on_floor : bool:
 func _ready():
 	state_machine = animation_tree.get("parameters/playback")
 	move_state_machine = animation_tree.get("parameters/Movement/playback")
-	jump_state_machine = animation_tree.get("parameters/jump/playback")
+	jump_state_machine = animation_tree.get("parameters/Jump/playback")
 	attack_state_machine = animation_tree.get("parameters/Attack/playback")
 
 
 func _physics_process(delta):
+	if delta > 0:
+		delay -= delta
 	direction = Input.get_axis("move_left","move_right")
 	velocity.x = direction * speed
 	velocity.y += gravity * delta
@@ -51,24 +53,48 @@ func _physics_process(delta):
 
 func controls():
 	if Input.is_action_just_pressed("jump") and is_on_floor():
-		state_machine.travel("jump")
+		state_machine.travel("Jump")
 		velocity.y = -400
+	
+	if Input.is_action_just_pressed("dash") and is_on_floor():
+		move_state_machine.travel("Dash")
+		set_speed(270.0)
 
-	if Input.is_action_just_pressed("attack_right") and is_on_floor():
-		play_attack("1")
+	if Input.is_action_just_pressed("attack_right") and delay <= 0 :
+		delay = 0.8
+		$RESET.start()
+		if is_on_floor():
+			counter += 1
+			attack((counter % 3 == 0))
+		if not is_on_floor():
+			jump_state_machine.travel("Jump")
 
 func set_motion(value : bool):
 	animation_tree.set("parameters/Movement/conditions/can_run", value)
 	animation_tree.set("parameters/Movement/conditions/is_stopped", not value)
 
+func set_speed(value: float = 175.0):
+	speed = value 
 
 func flip_sprite():
 	if direction < 0:
-		$animacao.flip_h = true
+		$AnimatedSprite2D.flip_h = true
 	elif direction > 0:
-		$animacao.flip_h = false
+		$AnimatedSprite2D.flip_h = false
 
 
 func play_attack(type : String):
-	attack_state_machine.travel("attack_" + type)
+	attack_state_machine.travel("Attack_" + type)
 	state_machine.travel("Attack")
+	set_speed(90)
+
+func attack(is_third):
+	if is_third:
+		play_attack("2")
+		counter = 0
+		return
+	play_attack("1")
+
+
+func _on_reset_timeout() -> void:
+	counter = 0
