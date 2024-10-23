@@ -78,9 +78,9 @@ func set_speed(value: float = 175.0):
 
 func flip_sprite():
 	if direction < 0:
-		$AnimatedSprite2D.flip_h = true
+		$AnimatedSprite2D.flipped = true
 	elif direction > 0:
-		$AnimatedSprite2D.flip_h = false
+		$AnimatedSprite2D.flipped = false
 
 
 func play_attack(type : String):
