@@ -1,62 +1,86 @@
 extends CharacterBody2D
 
-@export var animation_tree: AnimationTree
-@onready var raycast_vision = $Visao
+# Variáveis exportadas para facilitar ajustes no editor
+@export var move_speed: float = 200.0
+@export var patrol_range: Vector2 = Vector2(200, 100)
+@export var attack_range: float = 150.0
 
-var state_machine: AnimationNodeStateMachinePlayback
-var move_state_machine: AnimationNodeStateMachinePlayback
-var attack_state_machine: AnimationNodeStateMachinePlayback
+# Referências a nós
+var player = null
+var raycast
+var animation_player
+var movement_timer
+var idle_timer
+var arm_cast_timer
+var metelancia_timer
 
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-
-var speed: float = 175
-var direction: float = 1  # Começa indo para a direita
-var counter: int = 0
-var delay: float
-var flip_delay: float = 1.0  # Delay para flipar
-var last_flip_time: float = 0.0  # Controle de tempo para o delay de flip
+# Controle de direção
+var direction: Vector2 = Vector2.LEFT
+var is_attacking = false
 
 func _ready():
-	state_machine = animation_tree.get("parameters/playback")
-	move_state_machine = animation_tree.get("parameters/Movement/playback")
-	attack_state_machine = animation_tree.get("parameters/Attack/playback")
-	raycast_vision.enabled = true
+	raycast = $Visao/Mira
+	animation_player = $animacao
+	movement_timer = $timers/MovementTimer
+	idle_timer = $timers/IdleTimer
+	arm_cast_timer = $timers/ArmCastTimer
+	metelancia_timer = $timers/MetelanciaTimer
 
-func _physics_process(delta):
-	# Se o RayCast2D detectar o player
-	if raycast_vision.is_colliding():
-		var target = raycast_vision.get_collider()
-		
-		if target and target is CharacterBody2D:  # Verifica se o alvo é o player
-			move_towards_player(target)
+	# Acha o jogador na cena
+	player = get_tree().get_root().find_node("Player", true, false)
+
+	# Iniciar o movimento aleatório
+	_start_random_movement()
+
+func _physics_process(delta: float):
+	# Checa se o Golem está em um estado de ataque
+	if not is_attacking:
+		# Verifica se o jogador está no campo de visão (RayCast)
+		raycast.enabled = true
+		if raycast.is_colliding() and raycast.get_collider() == player:
+			_try_attack()
 		else:
-			move_randomly()  # Se não detectar, anda aleatoriamente
+			# Movimento aleatório enquanto o jogador não é visto
+			_random_movement(delta)
+
+func _random_movement(delta):
+	if movement_timer.time_left == 0 and not is_attacking:
+		direction.x = randf_range(-1, 1)  # Direção aleatória para esquerda ou direita
+		if direction.x != 0:
+			animation_player.play("Walk")
+		else:
+			animation_player.play("Idle")
+		velocity = Vector2(direction.x * move_speed, 0)
+		move_and_slide()
+
+	if is_on_wall():
+		direction = -direction  # Inverte a direção ao colidir com paredes
+
+func _try_attack():
+	# Checa qual ataque está disponível (baseado nos timers)
+	if arm_cast_timer.time_left == 0:
+		_arm_attack()
+	elif metelancia_timer.time_left == 0:
+		_metelancia_attack()
 	else:
-		move_randomly()  # Se não detectar, anda aleatoriamente
+		# Se nenhum ataque disponível, continuar patrulhando
+		_random_movement(delta)
 
-	flip_sprite()  # Chama a função para flipar o sprite
+func _arm_attack() -> void:
+	is_attacking = true
+	animation_player.play("ArmAttack")
+	arm_cast_timer.start()
+	await animation_player.animation_finished
+	is_attacking = false
 
-# Função para mover o golem em direção ao player
-func move_towards_player(player):
-	var direction_to_player = (player.position - position).normalized()
-	
-	direction = sign(direction_to_player.x)  # Atualiza a direção para o player
-	velocity.x = direction * speed  # Move na direção do player
-	move_and_slide()
+func _metelancia_attack() -> void:
+	is_attacking = true
+	animation_player.play("FloorAttack")
+	metelancia_timer.start()
+	await animation_player.animation_finished
+	is_attacking = false
 
-# Função para mover aleatoriamente (mantém a direção)
-func move_randomly():
-	velocity.x = direction * speed  # Continua na mesma direção
-	move_and_slide()
-
-	# Lógica para alternar a direção após um certo tempo
-	if position.x < 0 or position.x > 800:  # Muda a condição conforme seu cenário
-		direction *= -1  # Inverte a direção
-
-# Função para flipar o sprite com um delay
-func flip_sprite():
-	
-		if direction < 0 and $animacao.flip_h == false:
-			$animacao.flip_h = true  # Vira o sprite para a esquerda
-		elif direction > 0 and $animacao.flip_h == true:
-			$animacao.flip_h = false  # Vira o sprite para a direita
+func _start_random_movement():
+	# Configura o movimento aleatório do Golem
+	direction.x = randf_range(-1, 1)
+	movement_timer.start()

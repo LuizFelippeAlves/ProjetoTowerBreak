@@ -59,6 +59,7 @@ func controls():
 	if Input.is_action_just_pressed("dash") and is_on_floor():
 		move_state_machine.travel("Dash")
 		set_speed(270.0)
+		delay = 1.0
 
 	if Input.is_action_just_pressed("attack_right") and delay <= 0 :
 		delay = 0.8
