@@ -1,10 +1,11 @@
-[gd_scene load_steps=71 format=4 uid="uid://6hqeqbm3ifq"]
+[gd_scene load_steps=72 format=4 uid="uid://6hqeqbm3ifq"]
 
 [ext_resource type="Texture2D" uid="uid://bv6seowfsvhjv" path="res://assets/TileSetsAreas/Area - 0/Fundo area inicial.png" id="1_i6xxf"]
 [ext_resource type="Texture2D" uid="uid://ckht4lbuoe3rl" path="res://assets/TileSetsAreas/Area - 0/Tileset Area Inicial.png" id="2_crl7t"]
 [ext_resource type="Texture2D" uid="uid://kfjveew5jpyr" path="res://assets/TileSetsAreas/Area - 1/Fundo Area1.png" id="3_knupg"]
 [ext_resource type="Texture2D" uid="uid://lqxi0m2l1gv0" path="res://assets/TileSetsAreas/Area - 1/TileSet(Area1).png" id="4_dd0ah"]
 [ext_resource type="PackedScene" uid="uid://camspvi8wpf5i" path="res://Util/Base player.tscn" id="5_unj8g"]
+[ext_resource type="Script" path="res://Scripts/golem.gd" id="6_82g6u"]
 [ext_resource type="Texture2D" uid="uid://ctfhllh8ujx4o" path="res://assets/Sprits/GolemAnimations/SpriteGlmAtqH.png" id="8_thsa4"]
 [ext_resource type="Texture2D" uid="uid://biq2o6la0aj3j" path="res://assets/Sprits/GolemAnimations/SpriteGlmAtqPilar.png" id="13_0pnld"]
 [ext_resource type="Texture2D" uid="uid://bwyrvksg3po33" path="res://assets/Sprits/GolemAnimations/SpriteGlmAtqProjetil.png" id="14_kxrfi"]
@@ -1864,6 +1865,7 @@ animation = &"Attack_hand_attack"
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_ewbpi"]
+state_machine_type = 1
 states/Attack_floor_attack/node = SubResource("AnimationNodeAnimation_bd3vw")
 states/Attack_floor_attack/position = Vector2(435, 180)
 states/Attack_hand_attack/node = SubResource("AnimationNodeAnimation_btaih")
@@ -1871,6 +1873,7 @@ states/Attack_hand_attack/position = Vector2(435, 73)
 transitions = ["Start", "Attack_hand_attack", SubResource("AnimationNodeStateMachineTransition_7syra")]
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_hrgqy"]
+state_machine_type = 2
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ps5ib"]
 animation = &"Idle"
@@ -1887,7 +1890,8 @@ transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4euy6"]
 advance_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0a22a"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_30ir1"]
+switch_mode = 2
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_t7clp"]
@@ -1897,7 +1901,7 @@ states/AttackGroup/node = SubResource("AnimationNodeStateMachine_hrgqy")
 states/AttackGroup/position = Vector2(621, 192)
 states/Movement/node = SubResource("AnimationNodeStateMachine_33lvg")
 states/Movement/position = Vector2(395, 100)
-transitions = ["Start", "Movement", SubResource("AnimationNodeStateMachineTransition_4euy6"), "Attack", "Movement", SubResource("AnimationNodeStateMachineTransition_0a22a")]
+transitions = ["Start", "Movement", SubResource("AnimationNodeStateMachineTransition_4euy6"), "Attack", "Movement", SubResource("AnimationNodeStateMachineTransition_30ir1")]
 
 [node name="Mundo" type="Node2D"]
 
@@ -1910,6 +1914,8 @@ collision_mask = 3
 [node name="TileMapAndar1" type="Node2D" parent="."]
 
 [node name="chao" type="TileMapLayer" parent="TileMapAndar1"]
+light_mask = 7
+visibility_layer = 7
 use_parent_material = true
 tile_map_data = PackedByteArray("AAAAAAkAAwAAAAEAAAABAAkAAwABAAEAAAACAAkAAwABAAEAAAADAAkAAwABAAEAAAAEAAkAAwABAAEAAAAGAAkAAwABAAEAAAAFAAkAAwABAAEAAAAHAAkAAwABAAEAAAAIAAkAAwABAAEAAAAJAAkAAwABAAEAAAAKAAkAAwABAAEAAAALAAkAAwABAAEAAAAMAAkAAwABAAEAAAANAAkAAwABAAEAAAAOAAkAAwABAAEAAAAPAAkAAwABAAEAAAAQAAkAAwABAAEAAAARAAkAAwABAAEAAAASAAkAAwABAAEAAAATAAkAAwACAAEAAAAAAAgAAwAAAAAAAAABAAgAAwABAAAAAAACAAgAAwABAAAAAAADAAgAAwABAAAAAAAEAAgAAwABAAAAAAAFAAgAAwABAAAAAAAGAAgAAwABAAAAAAAHAAgAAwABAAAAAAAIAAgAAwABAAAAAAAJAAgAAwABAAAAAAAKAAgAAwABAAAAAAALAAgAAwABAAAAAAAMAAgAAwABAAAAAAANAAgAAwABAAAAAAAOAAgAAwABAAAAAAAPAAgAAwABAAAAAAAQAAgAAwABAAAAAAARAAgAAwABAAAAAAASAAgAAwABAAAAAAATAAgAAwACAAAAAAADAAQAAQAHAAIAAAAUAAkAAwABAAAAAAAUAAgAAwABAAAAAAAUAAcAAwABAAAAAAAUAAYAAwABAAAAAAAUAAUAAwABAAAAAAAUAAQAAwABAAAAAAAUAAMAAwABAAAAAAAUAAIAAwABAAAAAAAUAAEAAwABAAAAAAAUAAAAAwABAAAAAAD//wkAAwABAAAAAAD//wgAAwABAAAAAAD//wcAAwABAAAAAAD//wYAAwABAAAAAAD//wUAAwABAAAAAAD//wQAAwABAAAAAAD//wMAAwABAAAAAAD//wIAAwABAAAAAAD//wEAAwABAAAAAAD//wAAAwABAAAAAAA=")
 tile_set = SubResource("TileSet_60kdq")
@@ -1931,6 +1937,7 @@ position = Vector2(559, 221)
 scale = Vector2(-1, 1)
 collision_layer = 4
 collision_mask = 7
+script = ExtResource("6_82g6u")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Golem"]
 light_mask = 4

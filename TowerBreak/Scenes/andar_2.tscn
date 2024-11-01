@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=4 uid="uid://dpa8mwd40ar64"]
+[gd_scene load_steps=37 format=4 uid="uid://fqa11krxhrhd"]
 
 [ext_resource type="Texture2D" uid="uid://dsggaiwedl6tg" path="res://assets/TileSetsAreas/Area - 2/Fundo Area 2.png" id="1_h0up4"]
 [ext_resource type="Texture2D" uid="uid://dxd4q1j4gulw1" path="res://assets/TileSetsAreas/Area - 2/TileSet(Area2).png" id="2_lw05o"]
