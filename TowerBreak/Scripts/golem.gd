@@ -13,6 +13,7 @@ var direction: float
 var player : Node2D = null
 var delay : float = 0
 var counter : int = 0
+var attack_name = ""
 
 @export var movement_timer : Timer
 @export var idle_timer : Timer
@@ -73,8 +74,10 @@ func chase_player(delta):
 
 	if floor_attack_timer and floor_attack_timer.time_left == 0:
 		attack("Attack_floor_attack")
+		attack_name = "Attack_floor_attack"
 	elif arm_cast_timer and arm_cast_timer.time_left == 0:
 		attack("Attack_hand_attack")
+		attack_name = "Attack_hand_attack"
 
 func attack(attack_name: String):
 	print("Attacking with:", attack_name)
@@ -83,8 +86,10 @@ func attack(attack_name: String):
 	
 	if attack_name == "Attack_floor_attack" and floor_attack_timer:
 		floor_attack_timer.start()
+		attack_name = ""
 	elif attack_name == "Attack_hand_attack" and arm_cast_timer:
 		arm_cast_timer.start()
+		attack_name = ""
 
 func random_movement():
 	if movement_timer and movement_timer.time_left == 0:
