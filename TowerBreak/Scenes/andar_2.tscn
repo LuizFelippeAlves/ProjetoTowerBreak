@@ -1,12 +1,17 @@
-[gd_scene load_steps=43 format=4 uid="uid://fqa11krxhrhd"]
+[gd_scene load_steps=49 format=4 uid="uid://fqa11krxhrhd"]
 
 [ext_resource type="Texture2D" uid="uid://dsggaiwedl6tg" path="res://assets/TileSetsAreas/Area - 2/Fundo Area 2.png" id="1_h0up4"]
 [ext_resource type="Texture2D" uid="uid://dxd4q1j4gulw1" path="res://assets/TileSetsAreas/Area - 2/TileSet(Area2).png" id="2_lw05o"]
 [ext_resource type="PackedScene" uid="uid://camspvi8wpf5i" path="res://Util/Base player.tscn" id="3_kgvj4"]
 [ext_resource type="Texture2D" uid="uid://cu6pddh6ydc8b" path="res://assets/Sprits/ColetorAnimations/SpriteColetorAndando.png" id="4_sbggv"]
+[ext_resource type="Script" path="res://Scripts/ColetorScripts/coletor.gd" id="4_to4l6"]
 [ext_resource type="Texture2D" uid="uid://cag4vngi32tum" path="res://assets/Sprits/ColetorAnimations/SpriteColetorSocoCarne.png" id="5_e176q"]
 [ext_resource type="Texture2D" uid="uid://bcq4hqytw36pf" path="res://assets/Sprits/ColetorAnimations/SpriteColetorMagual.png" id="6_4n7ej"]
 [ext_resource type="Texture2D" uid="uid://sc0b8k7kds2d" path="res://assets/Sprits/ColetorAnimations/SpriteColetorParado.png" id="7_7sf18"]
+[ext_resource type="Script" path="res://Scripts/ColetorScripts/finiteStateMachine.gd" id="8_0f2t1"]
+[ext_resource type="Script" path="res://Scripts/ColetorScripts/state.gd" id="8_otqk1"]
+[ext_resource type="Script" path="res://Scripts/ColetorScripts/idle.gd" id="9_bt82p"]
+[ext_resource type="Script" path="res://Scripts/ColetorScripts/andar.gd" id="10_own8f"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g2ys6"]
 texture = ExtResource("1_h0up4")
@@ -347,7 +352,7 @@ sources/2 = SubResource("TileSetAtlasSource_g2ys6")
 sources/3 = SubResource("TileSetAtlasSource_uaefw")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a2dma"]
-size = Vector2(46.5, 54)
+size = Vector2(34.25, 54)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5ppi3"]
 atlas = ExtResource("4_sbggv")
@@ -540,6 +545,93 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Animation" id="Animation_bn1y5"]
+resource_name = "Andar"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"ColeotrAndando"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9, 1.2, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_jk7k8"]
+resource_name = "AtaqueCorpo"
+length = 3.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"ColetorAtaqueCarne"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 1.1, 1.5, 1.9, 2.4, 2.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_yr7ww"]
+resource_name = "AtaqueMagual"
+length = 2.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"ColetorAtaqueMangual"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.533333, 1.06667, 1.4, 1.6, 1.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 4, 5, 6]
+}
+
 [sub_resource type="Animation" id="Animation_fykx5"]
 length = 1.3
 loop_mode = 1
@@ -598,93 +690,6 @@ tracks/1/keys = {
 "values": [0, 1, 2]
 }
 
-[sub_resource type="Animation" id="Animation_bn1y5"]
-resource_name = "Andar"
-length = 2.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"ColeotrAndando"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.6, 0.9, 1.2, 1.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5]
-}
-
-[sub_resource type="Animation" id="Animation_yr7ww"]
-resource_name = "AtaqueMagual"
-length = 2.0
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"ColetorAtaqueMangual"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.533333, 1.06667, 1.4, 1.6, 1.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 4, 5, 6]
-}
-
-[sub_resource type="Animation" id="Animation_jk7k8"]
-resource_name = "AtaqueCorpo"
-length = 3.0
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"ColetorAtaqueCarne"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.6, 1.1, 1.5, 1.9, 2.4, 2.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6, 7]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_w7hrf"]
 _data = {
 "Andar": SubResource("Animation_bn1y5"),
@@ -694,22 +699,28 @@ _data = {
 "idle": SubResource("Animation_xuyts")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r04ad"]
+size = Vector2(297, 108.5)
+
 [node name="Mundo" type="Node2D"]
 
 [node name="TileMapAndar2" type="Node2D" parent="."]
 light_mask = 0
 
 [node name="Fundo" type="TileMapLayer" parent="TileMapAndar2"]
+light_mask = 0
 use_parent_material = true
 tile_map_data = PackedByteArray("AAAAAAAAAgAAAAAAAAAAAAEAAgAAAAEAAAAAAAIAAgAAAAIAAAAAAAMAAgAAAAMAAAAAAAQAAgAAAAQAAAAAAAUAAgAAAAUAAAAAAAYAAgAAAAYAAAAAAAcAAgAAAAcAAAAAAAgAAgAAAAgAAAAAAAkAAgAAAAkAAAABAAAAAgABAAAAAAABAAEAAgABAAEAAAABAAIAAgABAAIAAAABAAMAAgABAAMAAAABAAQAAgABAAQAAAABAAUAAgABAAUAAAABAAYAAgABAAYAAAABAAcAAgABAAcAAAABAAgAAgABAAgAAAABAAkAAgABAAkAAAACAAAAAgACAAAAAAACAAEAAgACAAEAAAACAAIAAgACAAIAAAACAAMAAgACAAMAAAACAAQAAgACAAQAAAACAAUAAgACAAUAAAACAAYAAgACAAYAAAACAAcAAgACAAcAAAACAAgAAgACAAgAAAACAAkAAgACAAkAAAADAAAAAgADAAAAAAADAAEAAgADAAEAAAADAAIAAgADAAIAAAADAAMAAgADAAMAAAADAAQAAgADAAQAAAADAAUAAgADAAUAAAADAAYAAgADAAYAAAADAAcAAgADAAcAAAADAAgAAgADAAgAAAADAAkAAgADAAkAAAAEAAAAAgAEAAAAAAAEAAEAAgAEAAEAAAAEAAIAAgAEAAIAAAAEAAMAAgAEAAMAAAAEAAQAAgAEAAQAAAAEAAUAAgAEAAUAAAAEAAYAAgAEAAYAAAAEAAcAAgAEAAcAAAAEAAgAAgAEAAgAAAAEAAkAAgAEAAkAAAAFAAAAAgAFAAAAAAAFAAEAAgAFAAEAAAAFAAIAAgAFAAIAAAAFAAMAAgAFAAMAAAAFAAQAAgAFAAQAAAAFAAUAAgAFAAUAAAAFAAYAAgAFAAYAAAAFAAcAAgAFAAcAAAAFAAgAAgAFAAgAAAAFAAkAAgAFAAkAAAAGAAAAAgAGAAAAAAAGAAEAAgAGAAEAAAAGAAIAAgAGAAIAAAAGAAMAAgAGAAMAAAAGAAQAAgAGAAQAAAAGAAUAAgAGAAUAAAAGAAYAAgAGAAYAAAAGAAcAAgAGAAcAAAAGAAgAAgAGAAgAAAAGAAkAAgAGAAkAAAAHAAAAAgAHAAAAAAAHAAEAAgAHAAEAAAAHAAIAAgAHAAIAAAAHAAMAAgAHAAMAAAAHAAQAAgAHAAQAAAAHAAUAAgAHAAUAAAAHAAYAAgAHAAYAAAAHAAcAAgAHAAcAAAAHAAgAAgAHAAgAAAAHAAkAAgAHAAkAAAAIAAAAAgAIAAAAAAAIAAEAAgAIAAEAAAAIAAIAAgAIAAIAAAAIAAMAAgAIAAMAAAAIAAQAAgAIAAQAAAAIAAUAAgAIAAUAAAAIAAYAAgAIAAYAAAAIAAcAAgAIAAcAAAAIAAgAAgAIAAgAAAAIAAkAAgAIAAkAAAAJAAAAAgAJAAAAAAAJAAEAAgAJAAEAAAAJAAIAAgAJAAIAAAAJAAMAAgAJAAMAAAAJAAQAAgAJAAQAAAAJAAUAAgAJAAUAAAAJAAYAAgAJAAYAAAAJAAcAAgAJAAcAAAAJAAgAAgAJAAgAAAAJAAkAAgAJAAkAAAAKAAAAAgAKAAAAAAAKAAEAAgAKAAEAAAAKAAIAAgAKAAIAAAAKAAMAAgAKAAMAAAAKAAQAAgAKAAQAAAAKAAUAAgAKAAUAAAAKAAYAAgAKAAYAAAAKAAcAAgAKAAcAAAAKAAgAAgAKAAgAAAAKAAkAAgAKAAkAAAALAAAAAgALAAAAAAALAAEAAgALAAEAAAALAAIAAgALAAIAAAALAAMAAgALAAMAAAALAAQAAgALAAQAAAALAAUAAgALAAUAAAALAAYAAgALAAYAAAALAAcAAgALAAcAAAALAAgAAgALAAgAAAALAAkAAgALAAkAAAAMAAAAAgAMAAAAAAAMAAEAAgAMAAEAAAAMAAIAAgAMAAIAAAAMAAMAAgAMAAMAAAAMAAQAAgAMAAQAAAAMAAUAAgAMAAUAAAAMAAYAAgAMAAYAAAAMAAcAAgAMAAcAAAAMAAgAAgAMAAgAAAAMAAkAAgAMAAkAAAANAAAAAgANAAAAAAANAAEAAgANAAEAAAANAAIAAgANAAIAAAANAAMAAgANAAMAAAANAAQAAgANAAQAAAANAAUAAgANAAUAAAANAAYAAgANAAYAAAANAAcAAgANAAcAAAANAAgAAgANAAgAAAANAAkAAgANAAkAAAAOAAAAAgAOAAAAAAAOAAEAAgAOAAEAAAAOAAIAAgAOAAIAAAAOAAMAAgAOAAMAAAAOAAQAAgAOAAQAAAAOAAUAAgAOAAUAAAAOAAYAAgAOAAYAAAAOAAcAAgAOAAcAAAAOAAgAAgAOAAgAAAAOAAkAAgAOAAkAAAAPAAAAAgAPAAAAAAAPAAEAAgAPAAEAAAAPAAIAAgAPAAIAAAAPAAMAAgAPAAMAAAAPAAQAAgAPAAQAAAAPAAUAAgAPAAUAAAAPAAYAAgAPAAYAAAAPAAcAAgAPAAcAAAAPAAgAAgAPAAgAAAAPAAkAAgAPAAkAAAAQAAAAAgAQAAAAAAAQAAEAAgAQAAEAAAAQAAIAAgAQAAIAAAAQAAMAAgAQAAMAAAAQAAQAAgAQAAQAAAAQAAUAAgAQAAUAAAAQAAYAAgAQAAYAAAAQAAcAAgAQAAcAAAAQAAgAAgAQAAgAAAAQAAkAAgAQAAkAAAARAAAAAgARAAAAAAARAAEAAgARAAEAAAARAAIAAgARAAIAAAARAAMAAgARAAMAAAARAAQAAgARAAQAAAARAAUAAgARAAUAAAARAAYAAgARAAYAAAARAAcAAgARAAcAAAARAAgAAgARAAgAAAARAAkAAgARAAkAAAASAAAAAgASAAAAAAASAAEAAgASAAEAAAASAAIAAgASAAIAAAASAAMAAgASAAMAAAASAAQAAgASAAQAAAASAAUAAgASAAUAAAASAAYAAgASAAYAAAASAAcAAgASAAcAAAASAAgAAgASAAgAAAASAAkAAgASAAkAAAATAAAAAgATAAAAAAATAAEAAgATAAEAAAATAAIAAgATAAIAAAATAAMAAgATAAMAAAATAAQAAgATAAQAAAATAAUAAgATAAUAAAATAAYAAgATAAYAAAATAAcAAgATAAcAAAATAAgAAgATAAgAAAATAAkAAgATAAkAAAA=")
 tile_set = SubResource("TileSet_60kdq")
 
 [node name="chao" type="TileMapLayer" parent="TileMapAndar2"]
+light_mask = 0
 use_parent_material = true
 tile_map_data = PackedByteArray("AAAAAAkAAwAAAAEAAAABAAkAAwABAAEAAAACAAkAAwABAAEAAAADAAkAAwABAAEAAAAEAAkAAwABAAEAAAAGAAkAAwABAAEAAAAFAAkAAwABAAEAAAAHAAkAAwABAAEAAAAIAAkAAwABAAEAAAAJAAkAAwABAAEAAAAKAAkAAwABAAEAAAALAAkAAwABAAEAAAAMAAkAAwABAAEAAAANAAkAAwABAAEAAAAOAAkAAwABAAEAAAAPAAkAAwABAAEAAAAQAAkAAwABAAEAAAARAAkAAwABAAEAAAASAAkAAwABAAEAAAATAAkAAwACAAEAAAAAAAgAAwAAAAAAAAABAAgAAwABAAAAAAACAAgAAwABAAAAAAADAAgAAwABAAAAAAAEAAgAAwABAAAAAAAFAAgAAwABAAAAAAAGAAgAAwABAAAAAAAHAAgAAwABAAAAAAAIAAgAAwABAAAAAAAJAAgAAwABAAAAAAAKAAgAAwABAAAAAAALAAgAAwABAAAAAAAMAAgAAwABAAAAAAANAAgAAwABAAAAAAAOAAgAAwABAAAAAAAPAAgAAwABAAAAAAAQAAgAAwABAAAAAAARAAgAAwABAAAAAAASAAgAAwABAAAAAAATAAgAAwACAAAAAAAUAAkAAwAAAAEAAAAUAAgAAwAAAAEAAAAUAAcAAwAAAAEAAAAUAAYAAwAAAAEAAAAUAAUAAwAAAAEAAAAUAAQAAwAAAAEAAAAUAAMAAwAAAAEAAAAUAAIAAwAAAAEAAAAUAAEAAwAAAAEAAAAUAAAAAwAAAAEAAAD//wkAAwACAAEAAAD//wgAAwACAAEAAAD//wcAAwACAAEAAAD//wYAAwACAAEAAAD//wUAAwACAAEAAAD//wQAAwACAAEAAAD//wMAAwACAAEAAAD//wIAAwACAAEAAAD//wEAAwACAAEAAAD//wAAAwACAAEAAAA=")
 tile_set = SubResource("TileSet_60kdq")
 
 [node name="Cenario" type="TileMapLayer" parent="TileMapAndar2"]
+light_mask = 0
 use_parent_material = true
 tile_map_data = PackedByteArray("AAAAAAQAAwAAAAIAAAAAAAUAAwAAAAMAAAAAAAYAAwAAAAQAAAAAAAcAAwAAAAUAAAABAAQAAwABAAIAAAABAAUAAwABAAMAAAABAAYAAwABAAQAAAABAAcAAwABAAUAAAACAAQAAwACAAIAAAACAAUAAwACAAMAAAACAAYAAwACAAQAAAACAAcAAwACAAUAAAADAAQAAwADAAIAAAADAAUAAwADAAMAAAADAAYAAwADAAQAAAADAAcAAwADAAUAAAAMAAYAAwAAAAgAAAAMAAcAAwAAAAkAAAANAAQAAwABAAYAAAANAAUAAwABAAcAAAANAAYAAwABAAgAAAANAAcAAwABAAkAAAAOAAQAAwACAAYAAAAOAAUAAwACAAcAAAAOAAYAAwACAAgAAAAOAAcAAwACAAkAAAAPAAQAAwADAAYAAAAPAAUAAwADAAcAAAAPAAYAAwADAAgAAAAPAAcAAwADAAkAAAAQAAQAAwAEAAYAAAAQAAUAAwAEAAcAAAAQAAYAAwAEAAgAAAAQAAcAAwAEAAkAAAARAAQAAwAFAAYAAAARAAUAAwAFAAcAAAARAAYAAwAFAAgAAAARAAcAAwAFAAkAAAASAAQAAwAGAAYAAAASAAUAAwAGAAcAAAASAAYAAwAGAAgAAAASAAcAAwAGAAkAAAATAAYAAwAHAAgAAAATAAcAAwAHAAkAAAAEAAYAAwAIAAgAAAAEAAcAAwAIAAkAAAAFAAMAAwAJAAUAAAAFAAQAAwAJAAYAAAAFAAUAAwAJAAcAAAAFAAYAAwAJAAgAAAAFAAcAAwAJAAkAAAAGAAIAAwAKAAQAAAAGAAMAAwAKAAUAAAAGAAQAAwAKAAYAAAAGAAUAAwAKAAcAAAAGAAYAAwAKAAgAAAAGAAcAAwAKAAkAAAAHAAIAAwALAAQAAAAHAAMAAwALAAUAAAAHAAQAAwALAAYAAAAHAAUAAwALAAcAAAAHAAYAAwALAAgAAAAHAAcAAwALAAkAAAAIAAIAAwAMAAQAAAAIAAMAAwAMAAUAAAAIAAQAAwAMAAYAAAAIAAUAAwAMAAcAAAAIAAYAAwAMAAgAAAAIAAcAAwAMAAkAAAAJAAIAAwANAAQAAAAJAAMAAwANAAUAAAAJAAQAAwANAAYAAAAJAAUAAwANAAcAAAAJAAYAAwANAAgAAAAJAAcAAwANAAkAAAAKAAMAAwAOAAUAAAAKAAQAAwAOAAYAAAAKAAUAAwAOAAcAAAAKAAYAAwAOAAgAAAAKAAcAAwAOAAkAAAALAAYAAwAPAAgAAAALAAcAAwAPAAkAAAANAAEAAwAKAAAAAAANAAIAAwAKAAEAAAAOAAEAAwALAAAAAAAOAAIAAwALAAEAAAAPAAEAAwAMAAAAAAAPAAIAAwAMAAEAAAAQAAEAAwANAAAAAAAQAAIAAwANAAEAAAARAAEAAwAOAAAAAAARAAIAAwAOAAEAAAASAAEAAwAPAAAAAAASAAIAAwAPAAEAAAASAAMAAwAPAAIAAAATAAIAAwAQAAEAAAATAAMAAwAQAAIAAAATAAQAAwAQAAMAAAABAAEAAwAGAAAAAAABAAIAAwAGAAEAAAABAAMAAwAGAAIAAAACAAEAAwAHAAAAAAACAAIAAwAHAAEAAAACAAMAAwAHAAIAAAALAAEAAwAEAAAAAAALAAIAAwAEAAEAAAALAAMAAwAEAAIAAAALAAQAAwAEAAMAAAAMAAEAAwAFAAAAAAAMAAIAAwAFAAEAAAAMAAMAAwAFAAIAAAAMAAQAAwAFAAMAAAA=")
 tile_set = SubResource("TileSet_60kdq")
@@ -719,6 +730,9 @@ position = Vector2(57, 237)
 
 [node name="Coletor" type="CharacterBody2D" parent="."]
 position = Vector2(485, 246)
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("4_to4l6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Coletor"]
 position = Vector2(-3, -17)
@@ -726,7 +740,6 @@ shape = SubResource("RectangleShape2D_a2dma")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Coletor"]
 position = Vector2(0, -22)
-scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_4wk41")
 animation = &"Idle"
 autoplay = "Idle"
@@ -736,5 +749,26 @@ libraries = {
 "": SubResource("AnimationLibrary_w7hrf")
 }
 
-[node name="RayCast2D" type="RayCast2D" parent="Coletor"]
-target_position = Vector2(-34, 1)
+[node name="PlayerDeteciton" type="Area2D" parent="Coletor"]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Coletor/PlayerDeteciton"]
+position = Vector2(0, -44)
+shape = SubResource("RectangleShape2D_r04ad")
+
+[node name="FiniteStateMachine" type="Node2D" parent="Coletor"]
+script = ExtResource("8_0f2t1")
+
+[node name="Idle" type="Node2D" parent="Coletor/FiniteStateMachine"]
+script = ExtResource("9_bt82p")
+
+[node name="Andar" type="Node2D" parent="Coletor/FiniteStateMachine"]
+script = ExtResource("10_own8f")
+
+[node name="AtaqueMangual" type="Node2D" parent="Coletor/FiniteStateMachine"]
+script = ExtResource("8_otqk1")
+
+[node name="AtaqueCorpo" type="Node2D" parent="Coletor/FiniteStateMachine"]
+script = ExtResource("8_otqk1")
+
+[connection signal="body_entered" from="Coletor/PlayerDeteciton" to="Coletor/FiniteStateMachine/Idle" method="_on_player_deteciton_body_entered"]

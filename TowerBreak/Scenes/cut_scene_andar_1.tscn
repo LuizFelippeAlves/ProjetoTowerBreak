@@ -1,6 +1,6 @@
 [gd_scene load_steps=19 format=4 uid="uid://i2x36rtvwydg"]
 
-[ext_resource type="Script" path="res://Scripts/cut_scene_andar_1.gd" id="1_wbcdr"]
+[ext_resource type="Script" path="res://Scripts/cut_scene_Util.gd" id="1_tsv50"]
 [ext_resource type="Texture2D" uid="uid://dxhxlb88qga08" path="res://assets/Sprits/GolemAnimations/SpriteGlmAcorda.png" id="2_awo8w"]
 [ext_resource type="Texture2D" uid="uid://cnocfqltatg5" path="res://assets/Sprits/CavaleiroAnimations/SpriteCavaleiroCaindo.png" id="2_sdi8b"]
 [ext_resource type="Texture2D" uid="uid://bv6seowfsvhjv" path="res://assets/TileSetsAreas/Area - 0/Fundo area inicial.png" id="3_g7e16"]
@@ -1718,7 +1718,7 @@ sources/3 = SubResource("TileSetAtlasSource_j48o5")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mp4my"]
 
 [node name="CutSceneAndar1" type="Node2D" node_paths=PackedStringArray("animation_play", "camera")]
-script = ExtResource("1_wbcdr")
+script = ExtResource("1_tsv50")
 animation_play = NodePath("CutScene")
 camera = NodePath("Camera2D")
 

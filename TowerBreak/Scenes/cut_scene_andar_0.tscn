@@ -1,6 +1,6 @@
 [gd_scene load_steps=25 format=4 uid="uid://pov3hlmvafkv"]
 
-[ext_resource type="Script" path="res://Scripts/cut_scene_andar_0.gd" id="1_ombqn"]
+[ext_resource type="Script" path="res://Scripts/cut_scene_Util.gd" id="1_a4i2w"]
 [ext_resource type="Texture2D" uid="uid://bv6seowfsvhjv" path="res://assets/TileSetsAreas/Area - 0/Fundo area inicial.png" id="1_sg7fk"]
 [ext_resource type="Texture2D" uid="uid://ckht4lbuoe3rl" path="res://assets/TileSetsAreas/Area - 0/Tileset Area Inicial.png" id="2_bnxyk"]
 [ext_resource type="Texture2D" uid="uid://dyuwyl36rlory" path="res://assets/TileSetsAreas/Area - 0/TileSet Area Inicial (1).png" id="3_o215o"]
@@ -1568,7 +1568,7 @@ height = 22.0
 
 [node name="CutSceneAndar0" type="Node2D" node_paths=PackedStringArray("animation_play", "camera")]
 modulate = Color(0, 0, 0, 1)
-script = ExtResource("1_ombqn")
+script = ExtResource("1_a4i2w")
 animation_play = NodePath("AnimationPlayer")
 camera = NodePath("Camera2D")
 
