@@ -1,8 +1,9 @@
-[gd_scene load_steps=43 format=4 uid="uid://fqa11krxhrhd"]
+[gd_scene load_steps=44 format=4 uid="uid://fqa11krxhrhd"]
 
 [ext_resource type="Texture2D" uid="uid://dsggaiwedl6tg" path="res://assets/TileSetsAreas/Area - 2/Fundo Area 2.png" id="1_h0up4"]
 [ext_resource type="Texture2D" uid="uid://dxd4q1j4gulw1" path="res://assets/TileSetsAreas/Area - 2/TileSet(Area2).png" id="2_lw05o"]
 [ext_resource type="PackedScene" uid="uid://camspvi8wpf5i" path="res://Util/Base player.tscn" id="3_kgvj4"]
+[ext_resource type="Script" path="res://Scripts/coletor.gd" id="4_kfh3c"]
 [ext_resource type="Texture2D" uid="uid://cu6pddh6ydc8b" path="res://assets/Sprits/ColetorAnimations/SpriteColetorAndando.png" id="4_sbggv"]
 [ext_resource type="Texture2D" uid="uid://cag4vngi32tum" path="res://assets/Sprits/ColetorAnimations/SpriteColetorSocoCarne.png" id="5_e176q"]
 [ext_resource type="Texture2D" uid="uid://bcq4hqytw36pf" path="res://assets/Sprits/ColetorAnimations/SpriteColetorMagual.png" id="6_4n7ej"]
@@ -719,6 +720,7 @@ position = Vector2(57, 237)
 
 [node name="Coletor" type="CharacterBody2D" parent="."]
 position = Vector2(485, 246)
+script = ExtResource("4_kfh3c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Coletor"]
 position = Vector2(-3, -17)
@@ -737,4 +739,3 @@ libraries = {
 }
 
 [node name="RayCast2D" type="RayCast2D" parent="Coletor"]
-target_position = Vector2(-34, 1)

@@ -1976,8 +1976,8 @@ one_shot = true
 one_shot = true
 
 [node name="Visao" type="RayCast2D" parent="Golem"]
-position = Vector2(15, -13)
-target_position = Vector2(455, 27)
+position = Vector2(3, 15)
+target_position = Vector2(254, -1)
 
 [node name="Mira" type="Node2D" parent="Golem"]
 
