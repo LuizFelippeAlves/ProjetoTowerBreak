@@ -677,7 +677,7 @@ transitions = ["Start", "Movement", SubResource("AnimationNodeStateMachineTransi
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1pqs0"]
 size = Vector2(20, 32)
 
-[node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("animation_tree")]
+[node name="player" type="CharacterBody2D" node_paths=PackedStringArray("animation_tree")]
 script = ExtResource("1_kms31")
 animation_tree = NodePath("AnimationTree")
 

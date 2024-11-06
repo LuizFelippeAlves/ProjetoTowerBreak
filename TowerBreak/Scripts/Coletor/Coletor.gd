@@ -1,12 +1,12 @@
 extends CharacterBody2D
 
 @onready var player = get_parent().find_child("Player")
-@onready var sprite = $AnimatedSprite2D
+@onready var sprite = $SpriteColetor
+@onready var animation_player = $AnimationColetor
 
 var direction : Vector2
-
-func _ready():
-	set_physics_process(false)
+func get_direction() -> Vector2:
+	return direction
 
 func _process(_delta):
 	direction = player.position - position
