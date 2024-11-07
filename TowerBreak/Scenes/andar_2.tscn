@@ -1,18 +1,13 @@
-[gd_scene load_steps=50 format=4 uid="uid://fqa11krxhrhd"]
+[gd_scene load_steps=46 format=4 uid="uid://fqa11krxhrhd"]
 
 [ext_resource type="Texture2D" uid="uid://dsggaiwedl6tg" path="res://assets/TileSetsAreas/Area - 2/Fundo Area 2.png" id="1_h0up4"]
 [ext_resource type="Texture2D" uid="uid://dxd4q1j4gulw1" path="res://assets/TileSetsAreas/Area - 2/TileSet(Area2).png" id="2_lw05o"]
 [ext_resource type="PackedScene" uid="uid://camspvi8wpf5i" path="res://Util/Base player.tscn" id="3_kgvj4"]
+[ext_resource type="Script" path="res://Scripts/Coletor.gd" id="4_hx5ir"]
 [ext_resource type="Texture2D" uid="uid://cu6pddh6ydc8b" path="res://assets/Sprits/ColetorAnimations/SpriteColetorAndando.png" id="4_sbggv"]
-[ext_resource type="Script" path="res://Scripts/Coletor/Coletor.gd" id="4_sy221"]
 [ext_resource type="Texture2D" uid="uid://cag4vngi32tum" path="res://assets/Sprits/ColetorAnimations/SpriteColetorSocoCarne.png" id="5_e176q"]
 [ext_resource type="Texture2D" uid="uid://bcq4hqytw36pf" path="res://assets/Sprits/ColetorAnimations/SpriteColetorMagual.png" id="6_4n7ej"]
 [ext_resource type="Texture2D" uid="uid://sc0b8k7kds2d" path="res://assets/Sprits/ColetorAnimations/SpriteColetorParado.png" id="7_7sf18"]
-[ext_resource type="Script" path="res://Scripts/Coletor/state.gd" id="8_qet2c"]
-[ext_resource type="Script" path="res://Scripts/Coletor/FSM.gd" id="8_t485a"]
-[ext_resource type="Script" path="res://Scripts/Coletor/Idle.gd" id="9_7b4nc"]
-[ext_resource type="Script" path="res://Scripts/Coletor/Andar.gd" id="10_yv2vv"]
-[ext_resource type="Script" path="res://Scripts/Coletor/ATTM.gd" id="12_gs0co"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g2ys6"]
 texture = ExtResource("1_h0up4")
@@ -701,8 +696,11 @@ _data = {
 "idle": SubResource("Animation_xuyts")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2jcfj"]
-size = Vector2(314, 109)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ewy1c"]
+size = Vector2(313, 109)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fw632"]
+size = Vector2(25, 54)
 
 [node name="Mundo" type="Node2D"]
 
@@ -727,14 +725,14 @@ use_parent_material = true
 tile_map_data = PackedByteArray("AAAAAAQAAwAAAAIAAAAAAAUAAwAAAAMAAAAAAAYAAwAAAAQAAAAAAAcAAwAAAAUAAAABAAQAAwABAAIAAAABAAUAAwABAAMAAAABAAYAAwABAAQAAAABAAcAAwABAAUAAAACAAQAAwACAAIAAAACAAUAAwACAAMAAAACAAYAAwACAAQAAAACAAcAAwACAAUAAAADAAQAAwADAAIAAAADAAUAAwADAAMAAAADAAYAAwADAAQAAAADAAcAAwADAAUAAAAMAAYAAwAAAAgAAAAMAAcAAwAAAAkAAAANAAQAAwABAAYAAAANAAUAAwABAAcAAAANAAYAAwABAAgAAAANAAcAAwABAAkAAAAOAAQAAwACAAYAAAAOAAUAAwACAAcAAAAOAAYAAwACAAgAAAAOAAcAAwACAAkAAAAPAAQAAwADAAYAAAAPAAUAAwADAAcAAAAPAAYAAwADAAgAAAAPAAcAAwADAAkAAAAQAAQAAwAEAAYAAAAQAAUAAwAEAAcAAAAQAAYAAwAEAAgAAAAQAAcAAwAEAAkAAAARAAQAAwAFAAYAAAARAAUAAwAFAAcAAAARAAYAAwAFAAgAAAARAAcAAwAFAAkAAAASAAQAAwAGAAYAAAASAAUAAwAGAAcAAAASAAYAAwAGAAgAAAASAAcAAwAGAAkAAAATAAYAAwAHAAgAAAATAAcAAwAHAAkAAAAEAAYAAwAIAAgAAAAEAAcAAwAIAAkAAAAFAAMAAwAJAAUAAAAFAAQAAwAJAAYAAAAFAAUAAwAJAAcAAAAFAAYAAwAJAAgAAAAFAAcAAwAJAAkAAAAGAAIAAwAKAAQAAAAGAAMAAwAKAAUAAAAGAAQAAwAKAAYAAAAGAAUAAwAKAAcAAAAGAAYAAwAKAAgAAAAGAAcAAwAKAAkAAAAHAAIAAwALAAQAAAAHAAMAAwALAAUAAAAHAAQAAwALAAYAAAAHAAUAAwALAAcAAAAHAAYAAwALAAgAAAAHAAcAAwALAAkAAAAIAAIAAwAMAAQAAAAIAAMAAwAMAAUAAAAIAAQAAwAMAAYAAAAIAAUAAwAMAAcAAAAIAAYAAwAMAAgAAAAIAAcAAwAMAAkAAAAJAAIAAwANAAQAAAAJAAMAAwANAAUAAAAJAAQAAwANAAYAAAAJAAUAAwANAAcAAAAJAAYAAwANAAgAAAAJAAcAAwANAAkAAAAKAAMAAwAOAAUAAAAKAAQAAwAOAAYAAAAKAAUAAwAOAAcAAAAKAAYAAwAOAAgAAAAKAAcAAwAOAAkAAAALAAYAAwAPAAgAAAALAAcAAwAPAAkAAAANAAEAAwAKAAAAAAANAAIAAwAKAAEAAAAOAAEAAwALAAAAAAAOAAIAAwALAAEAAAAPAAEAAwAMAAAAAAAPAAIAAwAMAAEAAAAQAAEAAwANAAAAAAAQAAIAAwANAAEAAAARAAEAAwAOAAAAAAARAAIAAwAOAAEAAAASAAEAAwAPAAAAAAASAAIAAwAPAAEAAAASAAMAAwAPAAIAAAATAAIAAwAQAAEAAAATAAMAAwAQAAIAAAATAAQAAwAQAAMAAAABAAEAAwAGAAAAAAABAAIAAwAGAAEAAAABAAMAAwAGAAIAAAACAAEAAwAHAAAAAAACAAIAAwAHAAEAAAACAAMAAwAHAAIAAAALAAEAAwAEAAAAAAALAAIAAwAEAAEAAAALAAMAAwAEAAIAAAALAAQAAwAEAAMAAAAMAAEAAwAFAAAAAAAMAAIAAwAFAAEAAAAMAAMAAwAFAAIAAAAMAAQAAwAFAAMAAAA=")
 tile_set = SubResource("TileSet_60kdq")
 
-[node name="Player" parent="." groups=["Player"] instance=ExtResource("3_kgvj4")]
+[node name="Player" parent="." instance=ExtResource("3_kgvj4")]
 position = Vector2(57, 237)
 
 [node name="Coletor" type="CharacterBody2D" parent="."]
 position = Vector2(485, 246)
 collision_layer = 2
 collision_mask = 0
-script = ExtResource("4_sy221")
+script = ExtResource("4_hx5ir")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Coletor"]
 position = Vector2(-3, -17)
@@ -751,37 +749,27 @@ libraries = {
 "": SubResource("AnimationLibrary_w7hrf")
 }
 
-[node name="debug" type="Label" parent="Coletor"]
-offset_left = -23.0
-offset_top = -60.0
-offset_right = 17.0
-offset_bottom = -37.0
-theme_override_font_sizes/font_size = 8
-text = "debug"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="AreaDetec" type="Area2D" parent="Coletor"]
 
-[node name="FiniteStateMachine" type="Node2D" parent="Coletor"]
-script = ExtResource("8_t485a")
+[node name="PlayerDetec" type="CollisionShape2D" parent="Coletor/AreaDetec"]
+position = Vector2(-2.5, -44.5)
+shape = SubResource("RectangleShape2D_ewy1c")
 
-[node name="Idle" type="Node2D" parent="Coletor/FiniteStateMachine"]
-script = ExtResource("9_7b4nc")
+[node name="AreaHit" type="Area2D" parent="Coletor"]
 
-[node name="Andar" type="Node2D" parent="Coletor/FiniteStateMachine"]
-script = ExtResource("10_yv2vv")
+[node name="HitDetec" type="CollisionShape2D" parent="Coletor/AreaHit"]
+position = Vector2(26.5, -17)
+shape = SubResource("RectangleShape2D_fw632")
 
-[node name="AtaqueMangual" type="Node2D" parent="Coletor/FiniteStateMachine"]
-script = ExtResource("12_gs0co")
+[node name="AtaqueCorpo" type="Timer" parent="Coletor"]
 
-[node name="AtaqueCorpo" type="Node2D" parent="Coletor/FiniteStateMachine"]
-script = ExtResource("8_qet2c")
+[node name="AtaqueCorpoRec" type="Timer" parent="Coletor"]
 
-[node name="PlayerDetection" type="Area2D" parent="Coletor"]
-collision_layer = 0
+[node name="AtaqueMangual" type="Timer" parent="Coletor"]
 
-[node name="Area" type="CollisionShape2D" parent="Coletor/PlayerDetection"]
-unique_name_in_owner = true
-position = Vector2(-3, -44.5)
-shape = SubResource("RectangleShape2D_2jcfj")
+[node name="AtaqueMangualRec" type="Timer" parent="Coletor"]
 
-[connection signal="body_entered" from="Coletor/PlayerDetection" to="Coletor/FiniteStateMachine/Idle" method="_on_player_entered"]
+[connection signal="body_entered" from="Coletor/AreaDetec" to="Coletor" method="_on_area_detec_body_entered"]
+[connection signal="body_exited" from="Coletor/AreaDetec" to="Coletor" method="_on_area_detec_body_exited"]
+[connection signal="body_entered" from="Coletor/AreaHit" to="Coletor" method="_on_area_hit_body_entered"]
+[connection signal="body_exited" from="Coletor/AreaHit" to="Coletor" method="_on_area_hit_body_exited"]

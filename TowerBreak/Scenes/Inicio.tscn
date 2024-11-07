@@ -1378,7 +1378,7 @@ use_parent_material = true
 tile_map_data = PackedByteArray("AAARAAcAAgAEAAcAAAARAAYAAgAEAAYAAAASAAYAAgAFAAYAAAASAAcAAgAFAAcAAAA=")
 tile_set = SubResource("TileSet_60kdq")
 
-[node name="CharacterBody2D" parent="." groups=["Player"] instance=ExtResource("3_jhsw7")]
+[node name="CharacterBody2D" parent="." instance=ExtResource("3_jhsw7")]
 position = Vector2(25, 238)
 collision_mask = 3
 
