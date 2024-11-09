@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=4 uid="uid://6hqeqbm3ifq"]
+[gd_scene load_steps=61 format=4 uid="uid://6hqeqbm3ifq"]
 
 [ext_resource type="Texture2D" uid="uid://bv6seowfsvhjv" path="res://assets/TileSetsAreas/Area - 0/Fundo area inicial.png" id="1_i6xxf"]
 [ext_resource type="Texture2D" uid="uid://ckht4lbuoe3rl" path="res://assets/TileSetsAreas/Area - 0/Tileset Area Inicial.png" id="2_crl7t"]
@@ -1855,54 +1855,6 @@ _data = {
 "RESET": SubResource("Animation_1151a")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bd3vw"]
-animation = &"Attack_floor_attack"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_btaih"]
-animation = &"Attack_hand_attack"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7syra"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_ewbpi"]
-state_machine_type = 1
-states/Attack_floor_attack/node = SubResource("AnimationNodeAnimation_bd3vw")
-states/Attack_floor_attack/position = Vector2(435, 180)
-states/Attack_hand_attack/node = SubResource("AnimationNodeAnimation_btaih")
-states/Attack_hand_attack/position = Vector2(435, 73)
-transitions = ["Start", "Attack_hand_attack", SubResource("AnimationNodeStateMachineTransition_7syra")]
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_hrgqy"]
-state_machine_type = 2
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ps5ib"]
-animation = &"Idle"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dsfcb"]
-advance_mode = 2
-advance_condition = &"can_run"
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_33lvg"]
-states/Idle/node = SubResource("AnimationNodeAnimation_ps5ib")
-states/Idle/position = Vector2(334, 68)
-transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_dsfcb")]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4euy6"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_30ir1"]
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_t7clp"]
-states/Attack/node = SubResource("AnimationNodeStateMachine_ewbpi")
-states/Attack/position = Vector2(557, 44)
-states/AttackGroup/node = SubResource("AnimationNodeStateMachine_hrgqy")
-states/AttackGroup/position = Vector2(621, 192)
-states/Movement/node = SubResource("AnimationNodeStateMachine_33lvg")
-states/Movement/position = Vector2(395, 100)
-transitions = ["Start", "Movement", SubResource("AnimationNodeStateMachineTransition_4euy6"), "Attack", "Movement", SubResource("AnimationNodeStateMachineTransition_30ir1")]
-
 [node name="Mundo" type="Node2D"]
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("5_unj8g")]
@@ -1932,7 +1884,7 @@ use_parent_material = true
 tile_map_data = PackedByteArray("AAACAAQAAwAAAAQAAAACAAYAAwAAAAYAAAACAAcAAwAAAAcAAAADAAQAAwABAAQAAAADAAUAAwABAAUAAAADAAcAAwABAAcAAAAEAAQAAwACAAQAAAAFAAQAAwADAAQAAAAGAAQAAwAEAAQAAAAHAAQAAwAFAAQAAAAHAAUAAwAFAAUAAAAHAAYAAwAFAAYAAAAHAAcAAwAFAAcAAAAMAAQAAwAAAAQAAAAMAAUAAwAAAAUAAAAMAAYAAwAAAAYAAAAMAAcAAwAAAAcAAAANAAQAAwABAAQAAAANAAUAAwABAAUAAAANAAcAAwABAAcAAAAOAAQAAwACAAQAAAAPAAQAAwADAAQAAAAQAAQAAwAEAAQAAAARAAQAAwAFAAQAAAARAAUAAwAFAAUAAAARAAYAAwAFAAYAAAARAAcAAwAFAAcAAAACAAUAAwAAAAUAAAD//wAAAwABAAAAAAD//wEAAwABAAAAAAD//wIAAwABAAAAAAD//wMAAwABAAAAAAD//wQAAwABAAAAAAA=")
 tile_set = SubResource("TileSet_60kdq")
 
-[node name="Golem" type="CharacterBody2D" parent="."]
+[node name="Golem" type="CharacterBody2D" parent="." groups=["Boss"]]
 position = Vector2(559, 221)
 scale = Vector2(-1, 1)
 collision_layer = 4
@@ -1955,47 +1907,6 @@ autoplay = "Idle"
 libraries = {
 "": SubResource("AnimationLibrary_bof20")
 }
-
-[node name="AnimationTree" type="AnimationTree" parent="Golem"]
-tree_root = SubResource("AnimationNodeStateMachine_t7clp")
-anim_player = NodePath("../AnimationPlayer")
-parameters/Movement/conditions/can_run = false
-
-[node name="timers" type="Node2D" parent="Golem"]
-
-[node name="MovementTimer" type="Timer" parent="Golem/timers"]
-one_shot = true
-
-[node name="IdleTimer" type="Timer" parent="Golem/timers"]
-one_shot = true
-
-[node name="ArmCastTimer" type="Timer" parent="Golem/timers"]
-one_shot = true
-
-[node name="MetelanciaTimer" type="Timer" parent="Golem/timers"]
-one_shot = true
-
-[node name="Visao" type="RayCast2D" parent="Golem"]
-position = Vector2(3, 15)
-target_position = Vector2(254, -1)
-
-[node name="Mira" type="Node2D" parent="Golem"]
-
-[node name="ArmAttack" type="Marker2D" parent="Golem/Mira"]
-position = Vector2(23, 9)
-
-[node name="FloorAttack" type="Marker2D" parent="Golem/Mira"]
-position = Vector2(3, 32)
-
-[node name="Areas" type="Node2D" parent="Golem"]
-
-[node name="Influencia" type="Area2D" parent="Golem/Areas"]
-
-[node name="Shape" type="CollisionShape2D" parent="Golem/Areas/Influencia"]
-
-[node name="Interacao" type="Area2D" parent="Golem/Areas"]
-
-[node name="Shape" type="CollisionShape2D" parent="Golem/Areas/Interacao"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(320, 140)

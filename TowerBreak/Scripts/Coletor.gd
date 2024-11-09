@@ -1,57 +1,73 @@
 extends CharacterBody2D
 
 @onready var AnimationColetor: AnimationPlayer = $AnimationColetor
-@onready var AtaqueCorpo: Timer = $AtaqueCorpo
-@onready var AtaqueCorpoRec: Timer = $AtaqueCorpoRec
-@onready var AtaqueMangual: Timer = $AtaqueMangual
-@onready var AtaqueMangualRec: Timer = $AtaqueMangualRec
+@onready var DecParede: RayCast2D = $DecParede
 
 var movimento = Vector2()
 var player_in_area = false
 var player_in_ataque = false
-var is_attacking = false  # Controle de estado para saber se o inimigo está atacando
+var is_attacking = false
+var ataque_iniciado = false
+var ultima_direcao = 1.0
+var contador_ataque_mangual = 0
+var limite_ataques_mangual = randi_range(4, 7)
+var distancia_minima_do_player = 30.0  # Distância mínima para manter do jogador
+var player_detectado_uma_vez = false
+
+func wait(seconds: float) -> void:
+	await get_tree().create_timer(seconds).timeout
 
 func _ready() -> void:
 	add_to_group("Boss")
-	AtaqueCorpoRec.one_shot = true
-	AtaqueMangualRec.one_shot = true
-	AtaqueCorpoRec.connect("timeout", Callable(self, "_on_ataque_corpo_cooldown_timeout"))
-	AtaqueMangualRec.connect("timeout", Callable(self, "_on_ataque_mangual_cooldown_timeout"))
+	randomize()
+	DecParede.add_exception(get_parent().get_node("Player"))
 
 func _process(delta: float) -> void:
-	if not is_attacking:
-		if player_in_area:
+	if player_detectado_uma_vez and not is_attacking:
+		if player_in_ataque:
+			if distancia_ao_jogador() > distancia_minima_do_player:
+				seguir_jogador(delta)
+			else:
+				parar_movimento()
+		elif player_in_area:
 			seguir_jogador(delta)
 		else:
-			parar_movimento()
+			seguir_ultima_direcao(delta)
+
+func distancia_ao_jogador() -> float:
+	var player = get_parent().get_node_or_null("Player")
+	if player:
+		return position.distance_to(player.position)
+	return INF
 
 func _on_area_detec_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
 		player_in_area = true
-		print("Muve")
+		player_detectado_uma_vez = true
 		AnimationColetor.play("Andar")
 
 func _on_area_detec_body_exited(body: Node2D) -> void:
 	if body.is_in_group("Player"):
 		player_in_area = false
-		print("Pause")
-		AnimationColetor.play("idle")
+		if is_attacking:
+			print("Esperando fim do ataque para sair da área")
+		else:
+			AnimationColetor.play("Andar")
 
 func seguir_jogador(delta: float) -> void:
 	var player = get_parent().get_node_or_null("Player")
 	if player:
-		# Movimenta-se apenas no eixo X (direita/esquerda)
 		var direction_x = player.position.x - position.x
-		position.x += sign(direction_x) * delta * 50  # Controla a velocidade de movimento
+		ultima_direcao = sign(direction_x)
+		position.x += ultima_direcao * delta * 50
 		
-		# Flip horizontal da sprite ao mudar de direção
-		if direction_x > 0:
-			scale.x = 1  # Virado para a direita
-		elif direction_x < 0:
-			scale.x = -1  # Virado para a esquerda
+		if ultima_direcao > 0:
+			scale.x = 1
+		elif ultima_direcao < 0:
+			scale.x = -1
 
 func _on_area_hit_body_entered(body: Node2D) -> void:
-	if body.is_in_group("Player") and not is_attacking:
+	if body.is_in_group("Player") and not is_attacking and not ataque_iniciado:
 		player_in_ataque = true
 		iniciar_ataque()
 
@@ -60,19 +76,53 @@ func _on_area_hit_body_exited(body: Node2D) -> void:
 		player_in_ataque = false
 
 func iniciar_ataque() -> void:
+	ataque_iniciado = true
 	is_attacking = true
-	if AtaqueCorpoRec.is_stopped():
-		AnimationColetor.play("AtaqueCorpo")
-		AtaqueCorpoRec.start(6.0)  # Cooldown de 2 segundos para ataque corpo
-	else:
+	
+	if contador_ataque_mangual < limite_ataques_mangual:
 		AnimationColetor.play("AtaqueMangual")
-		AtaqueMangualRec.start(2.0)  # Cooldown de 3 segundos para ataque mangual
+		ataque_mangual()
+		contador_ataque_mangual += 1
+	else:
+		AnimationColetor.play("AtaqueCorpo")
+		ataque_corpo()
+		contador_ataque_mangual = 0
+		limite_ataques_mangual = randi_range(4, 7)
 
-func _on_ataque_corpo_cooldown_timeout() -> void:
+func ataque_corpo() -> void:
+	is_attacking = true
+	await wait(2.6)
 	is_attacking = false
+	ataque_iniciado = false
+	retomar_movimento()
 
-func _on_ataque_mangual_cooldown_timeout() -> void:
+func ataque_mangual() -> void:
+	is_attacking = true
+	await wait(1.4)
 	is_attacking = false
+	ataque_iniciado = false
+	retomar_movimento()
+
+func retomar_movimento() -> void:
+	if player_in_area and distancia_ao_jogador() > distancia_minima_do_player:
+		AnimationColetor.play("Andar")
+	else:
+		AnimationColetor.play("idle")
+	parar_movimento()
+
+func seguir_ultima_direcao(delta: float) -> void:
+	# Continua na última direção até encontrar o jogador novamente
+	position.x += ultima_direcao * delta * 50
+	AnimationColetor.play("Andar")
+
+func detectar_parede() -> void:
+	if DecParede.is_colliding() and not DecParede.get_collider().is_in_group("Player"):  
+		ultima_direcao = -ultima_direcao
+		scale.x = -scale.x
+		print("Parede detectada, virando direção")
 
 func parar_movimento() -> void:
-	AnimationColetor.stop()
+	if ultima_direcao != 0 and not is_attacking:
+		position.x += ultima_direcao * get_process_delta_time() * 50
+	else:
+		AnimationColetor.stop()
