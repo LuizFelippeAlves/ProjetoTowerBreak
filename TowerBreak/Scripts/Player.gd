@@ -9,10 +9,14 @@ var attack_state_machine : AnimationNodeStateMachinePlayback
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
+@export var player_health : int = 100
+@export var player_damage : int = 15
 var speed : float = 175
 var direction: float
 var counter : int = 0
 var delay : float
+
+
 
 var on_floor : bool:
 	set(value):
@@ -99,3 +103,9 @@ func attack(is_third):
 
 func _on_reset_timeout() -> void:
 	counter = 0
+
+
+func _on_hurtbox_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Boss"):
+		player_health -= 10
+		print(player_health)

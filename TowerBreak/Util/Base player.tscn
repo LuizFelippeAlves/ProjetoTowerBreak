@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=3 uid="uid://camspvi8wpf5i"]
+[gd_scene load_steps=74 format=3 uid="uid://camspvi8wpf5i"]
 
 [ext_resource type="Texture2D" uid="uid://sxnlr2d0lxcl" path="res://assets/Sprits/CavaleiroAnimations/SpriteCavaleiroAtaque.png" id="1_hkq3n"]
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_kms31"]
@@ -677,6 +677,9 @@ transitions = ["Start", "Movement", SubResource("AnimationNodeStateMachineTransi
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1pqs0"]
 size = Vector2(20, 32)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_imuh3"]
+size = Vector2(13, 26)
+
 [node name="player" type="CharacterBody2D" node_paths=PackedStringArray("animation_tree") groups=["Player"]]
 script = ExtResource("1_kms31")
 animation_tree = NodePath("AnimationTree")
@@ -717,4 +720,13 @@ debug_color = Color(0.996844, 0, 0.178589, 0.42)
 script = ExtResource("11_3vu15")
 default_position = Vector2(13, 2)
 
+[node name="Hurtbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(-3.5, 4)
+shape = SubResource("RectangleShape2D_imuh3")
+debug_color = Color(8.18223e-07, 0.65042, 0.0936848, 0.42)
+
 [connection signal="timeout" from="RESET" to="." method="_on_reset_timeout"]
+[connection signal="body_entered" from="Hitibox" to="Hitibox" method="_on_body_entered"]
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]

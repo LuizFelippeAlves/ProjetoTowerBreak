@@ -13,6 +13,8 @@ var contador_ataque_mangual = 0
 var limite_ataques_mangual = randi_range(4, 7)
 var distancia_minima_do_player = 30.0  # Distância mínima para manter do jogador
 var player_detectado_uma_vez = false
+@export var Coletor_Health = 100
+@export var Coletor_Damage = 50
 
 func wait(seconds: float) -> void:
 	await get_tree().create_timer(seconds).timeout
@@ -126,3 +128,8 @@ func parar_movimento() -> void:
 		position.x += ultima_direcao * get_process_delta_time() * 50
 	else:
 		AnimationColetor.stop()
+
+
+func _on_hitbox_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Player"):
+		Coletor_Health = 100

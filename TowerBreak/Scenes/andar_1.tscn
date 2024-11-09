@@ -1888,7 +1888,7 @@ tile_set = SubResource("TileSet_60kdq")
 position = Vector2(559, 221)
 scale = Vector2(-1, 1)
 collision_layer = 4
-collision_mask = 7
+collision_mask = 27
 script = ExtResource("6_82g6u")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Golem"]
