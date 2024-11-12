@@ -17,7 +17,6 @@ var counter : int = 0
 var delay : float
 
 
-
 var on_floor : bool:
 	set(value):
 		if value == on_floor:
@@ -37,6 +36,8 @@ func _ready():
 
 
 func _physics_process(delta):
+	print("Velocity:", velocity)
+	print("Current state:", state_machine.get_current_node())
 	if delta > 0:
 		delay -= delta
 	direction = Input.get_axis("move_left","move_right")
@@ -89,8 +90,10 @@ func flip_sprite():
 
 
 func play_attack(type : String):
+	print("Playing attack of type:", type)
 	attack_state_machine.travel("Attack_" + type)
 	state_machine.travel("Attack")
+	print("State machine is in attack state")
 	set_speed(90)
 
 func attack(is_third):
