@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @export var animation_tree : AnimationTree
+@export var vida = 100
 
 var state_machine : AnimationNodeStateMachinePlayback
 var move_state_machine : AnimationNodeStateMachinePlayback
@@ -9,13 +10,10 @@ var attack_state_machine : AnimationNodeStateMachinePlayback
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-@export var player_health : int = 100
-@export var player_damage : int = 15
 var speed : float = 175
 var direction: float
 var counter : int = 0
 var delay : float
-
 
 var on_floor : bool:
 	set(value):
@@ -34,10 +32,7 @@ func _ready():
 	jump_state_machine = animation_tree.get("parameters/Jump/playback")
 	attack_state_machine = animation_tree.get("parameters/Attack/playback")
 
-
 func _physics_process(delta):
-	print("Velocity:", velocity)
-	print("Current state:", state_machine.get_current_node())
 	if delta > 0:
 		delay -= delta
 	direction = Input.get_axis("move_left","move_right")
@@ -90,10 +85,8 @@ func flip_sprite():
 
 
 func play_attack(type : String):
-	print("Playing attack of type:", type)
 	attack_state_machine.travel("Attack_" + type)
 	state_machine.travel("Attack")
-	print("State machine is in attack state")
 	set_speed(90)
 
 func attack(is_third):
@@ -103,12 +96,15 @@ func attack(is_third):
 		return
 	play_attack("1")
 
+func receber_dano(valor_dano: int) -> void:
+	vida -= valor_dano
+	print("Player recebeu dano:", valor_dano)
+	if vida <= 0:
+		morrer()
+
+func morrer():
+	print("O player morreu.")
+	# Lógica para quando o player morrer, como reiniciar o jogo ou finalizar a partida
 
 func _on_reset_timeout() -> void:
 	counter = 0
-
-
-func _on_hurtbox_body_entered(body: Node2D) -> void:
-	if body.is_in_group("Boss"):
-		player_health -= 10
-		print(player_health)

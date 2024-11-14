@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @onready var AnimationColetor: AnimationPlayer = $AnimationColetor
 @onready var DecParede: RayCast2D = $DecParede
+@onready var HitDetec: Area2D = $HitDetec
 
 var movimento = Vector2()
 var player_in_area = false
@@ -14,7 +15,7 @@ var limite_ataques_mangual = randi_range(4, 7)
 var distancia_minima_do_player = 30.0  # Distância mínima para manter do jogador
 var player_detectado_uma_vez = false
 @export var Coletor_Health = 100
-@export var Coletor_Damage = 50
+@export var Coletor_Damage : float
 
 func wait(seconds: float) -> void:
 	await get_tree().create_timer(seconds).timeout
@@ -25,6 +26,8 @@ func _ready() -> void:
 	DecParede.add_exception(get_parent().get_node("Player"))
 
 func _process(delta: float) -> void:
+	detectar_parede()
+	
 	if player_detectado_uma_vez and not is_attacking:
 		if player_in_ataque:
 			if distancia_ao_jogador() > distancia_minima_do_player:
@@ -129,7 +132,19 @@ func parar_movimento() -> void:
 	else:
 		AnimationColetor.stop()
 
-
-func _on_hitbox_body_entered(body: Node2D) -> void:
-	if body.is_in_group("Player"):
-		Coletor_Health = 100
+func aplicar_dano(dano: int) -> void:
+	print("Tentando aplicar dano:", dano)
+	var overlapping_areas = HitDetec.get_overlapping_areas()
+	
+	if overlapping_areas.size() > 0:
+		print("Áreas sobrepostas detectadas:", overlapping_areas.size())
+	else:
+		print("Nenhuma área sobreposta detectada.")
+	
+	for area in overlapping_areas:
+		if area.is_in_group("DamegeDetec"):
+			var player = area.get_parent()  # Assumindo que "DamageDetec" é filho do player
+			if player and player.has_method("receber_dano"):
+				player.receber_dano(dano)
+				print("Player atingido! Dano aplicado:", dano)
+				return

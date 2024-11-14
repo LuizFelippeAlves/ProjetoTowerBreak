@@ -12,6 +12,9 @@
 [ext_resource type="Script" path="res://Scripts/hitibox.gd" id="10_ybptt"]
 [ext_resource type="Script" path="res://Scripts/Flippable_shape.gd" id="11_3vu15"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qkrg3"]
+size = Vector2(23, 32)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8tsmd"]
 size = Vector2(23, 32)
 
@@ -677,16 +680,22 @@ transitions = ["Start", "Movement", SubResource("AnimationNodeStateMachineTransi
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1pqs0"]
 size = Vector2(20, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_imuh3"]
-size = Vector2(13, 26)
-
 [node name="player" type="CharacterBody2D" node_paths=PackedStringArray("animation_tree") groups=["Player"]]
 script = ExtResource("1_kms31")
 animation_tree = NodePath("AnimationTree")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="DamegeDetec" type="Area2D" parent="." groups=["DamegeDetec"]]
+collision_layer = 2
+collision_mask = 2
+
+[node name="DamegeDetecColision" type="CollisionShape2D" parent="DamegeDetec"]
+position = Vector2(-0.5, 2)
+shape = SubResource("RectangleShape2D_qkrg3")
+
+[node name="Corpo" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, 2)
 shape = SubResource("RectangleShape2D_8tsmd")
+debug_color = Color(2.96004e-06, 0.647767, 0.201648, 0.42)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_v65o1")
@@ -720,13 +729,4 @@ debug_color = Color(0.996844, 0, 0.178589, 0.42)
 script = ExtResource("11_3vu15")
 default_position = Vector2(13, 2)
 
-[node name="Hurtbox" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-position = Vector2(-3.5, 4)
-shape = SubResource("RectangleShape2D_imuh3")
-debug_color = Color(8.18223e-07, 0.65042, 0.0936848, 0.42)
-
 [connection signal="timeout" from="RESET" to="." method="_on_reset_timeout"]
-[connection signal="body_entered" from="Hitibox" to="Hitibox" method="_on_body_entered"]
-[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]

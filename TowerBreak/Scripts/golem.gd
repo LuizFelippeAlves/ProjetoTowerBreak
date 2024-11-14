@@ -1,110 +1,64 @@
 extends CharacterBody2D
 
-@export var animation_tree : AnimationTree
-@export var raycast : RayCast2D
-@export var movement_speed : float = 100.0  # Verifique se isso está atribuído corretamente no editor
+@onready var AnimationGolem: AnimationPlayer = $AnimationGolem
+@onready var DecParede: RayCast2D = $DecParede
 
-var state_machine : AnimationNodeStateMachinePlayback
-var move_state_machine : AnimationNodeStateMachinePlayback
-var attack_state_machine : AnimationNodeStateMachinePlayback
+var movimento = Vector2()
+var player_in_area = false
+var ultima_direcao = 1.0
+var player_detectado_uma_vez = false
+var distancia_minima_do_player = 30.0  # Distância mínima para manter do jogador
 
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var direction: float
-var player : Node2D = null
-var delay : float = 0
-var counter : int = 0
-var attack_name = ""
+func _ready() -> void:
+	add_to_group("Inimigo")
+	randomize()
+	DecParede.add_exception(get_parent().get_node("Player"))
 
-@export var movement_timer : Timer
-@export var idle_timer : Timer
-@export var arm_cast_timer : Timer
-@export var floor_attack_timer : Timer
-
-var on_floor : bool:
-	set(value):
-		if value == on_floor:
-			return
-		
-		on_floor = value
-		if value == true:
-			if state_machine:
-				state_machine.travel("Movement")
+func _process(delta: float) -> void:
+	detectar_parede()
+	
+	if player_detectado_uma_vez:
+		if player_in_area:
+			seguir_jogador(delta)
 		else:
-			if state_machine:
-				state_machine.travel("Idle")
+			seguir_ultima_direcao(delta)
 
-func _ready():
-	if animation_tree:
-		state_machine = animation_tree.get("parameters/playback") as AnimationNodeStateMachinePlayback
-		move_state_machine = animation_tree.get("parameters/Movement/playback") as AnimationNodeStateMachinePlayback
-		attack_state_machine = animation_tree.get("parameters/Attack/playback") as AnimationNodeStateMachinePlayback
+func distancia_ao_jogador() -> float:
+	var player = get_parent().get_node_or_null("Player")
+	if player:
+		return position.distance_to(player.position)
+	return INF
 
-	if raycast:
-		raycast.enabled = true
-	
-	# Iniciar o movimento aleatório
-	print("Iniciando movimento aleatório.")
-	random_movement()
+func _on_area_detec_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Player"):
+		player_in_area = true
+		player_detectado_uma_vez = true
+		AnimationGolem.play("idle")  # Usa a animação de idle
 
-func _physics_process(delta):
-	if delta > 0:
-		delay -= delta
+func _on_area_detec_body_exited(body: Node2D) -> void:
+	if body.is_in_group("Player"):
+		player_in_area = false
+		AnimationGolem.play("idle")  # Continua na animação de idle
 
-	# Detecção do jogador através do RayCast2D
-	if raycast and raycast.is_colliding():
-		player = raycast.get_collider()
-		if player and player.is_in_group("player"):
-			chase_player(delta)
-	else:
-		random_movement()
+func seguir_jogador(delta: float) -> void:
+	var player = get_parent().get_node_or_null("Player")
+	if player:
+		var direction_x = player.position.x - position.x
+		ultima_direcao = sign(direction_x)
+		position.x += ultima_direcao * delta * 50
+		
+		if ultima_direcao > 0:
+			scale.x = 1
+		elif ultima_direcao < 0:
+			scale.x = -1
 
-	on_floor = is_on_floor()
+func seguir_ultima_direcao(delta: float) -> void:
+	# Continua na última direção até encontrar o jogador novamente
+	position.x += ultima_direcao * delta * 50
+	AnimationGolem.play("idle")  # Usa a animação de idle para flutuar
 
-
-
-	move_and_slide()
-
-func chase_player(delta):
-	print("Chasing Player")
-	var direction = (player.global_position - global_position).normalized()
-	velocity.x = direction.x * movement_speed
-	
-	if move_state_machine:
-		move_state_machine.travel("Movement")
-
-	if floor_attack_timer and floor_attack_timer.time_left == 0:
-		attack("Attack_floor_attack")
-		attack_name = "Attack_floor_attack"
-	elif arm_cast_timer and arm_cast_timer.time_left == 0:
-		attack("Attack_hand_attack")
-		attack_name = "Attack_hand_attack"
-
-func attack(attack_name: String):
-	print("Attacking with:", attack_name)
-	if attack_state_machine:
-		attack_state_machine.travel(attack_name)
-	
-	if attack_name == "Attack_floor_attack" and floor_attack_timer:
-		floor_attack_timer.start()
-		attack_name = ""
-	elif attack_name == "Attack_hand_attack" and arm_cast_timer:
-		arm_cast_timer.start()
-		attack_name = ""
-
-func random_movement():
-	if movement_timer and movement_timer.time_left == 0:
-		print("Moving Randomly")
-		var random_direction = Vector2(randf() * 2 - 1, 0).normalized()
-		velocity.x = random_direction.x * movement_speed
-		print("Random Velocity X:", velocity.x)
-		if move_state_machine:
-			move_state_machine.travel("Movement")
-		movement_timer.start()
-	else:
-		if state_machine:
-			state_machine.travel("Idle")
-
-func set_motion(value : bool):
-	if animation_tree:
-		animation_tree.set("parameters/Movement/conditions/can_run", value)
-		animation_tree.set("parameters/Movement/conditions/is_stopped", not value)
+func detectar_parede() -> void:
+	if DecParede.is_colliding() and not DecParede.get_collider().is_in_group("Player"):  
+		ultima_direcao = -ultima_direcao
+		scale.x = -scale.x
+		print("Parede detectada, virando direção")

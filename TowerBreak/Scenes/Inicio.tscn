@@ -1395,11 +1395,7 @@ frame_progress = 0.429756
 shape = SubResource("CapsuleShape2D_sundc")
 
 [node name="Portal" parent="." instance=ExtResource("5_w7e3m")]
-position = Vector2(328, 228)
+position = Vector2(328, 219)
 collision_layer = 2
 collision_mask = 3
 nextScene = "res://Scenes/cut_scene_andar_0.tscn"
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(320, 140)
-zoom = Vector2(1, 1.145)
