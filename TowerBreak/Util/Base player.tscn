@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=3 uid="uid://camspvi8wpf5i"]
+[gd_scene load_steps=73 format=3 uid="uid://camspvi8wpf5i"]
 
 [ext_resource type="Texture2D" uid="uid://sxnlr2d0lxcl" path="res://assets/Sprits/CavaleiroAnimations/SpriteCavaleiroAtaque.png" id="1_hkq3n"]
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_kms31"]
@@ -11,9 +11,6 @@
 [ext_resource type="Script" path="res://Scripts/FlippableSprite.gd" id="9_8mb1f"]
 [ext_resource type="Script" path="res://Scripts/hitibox.gd" id="10_ybptt"]
 [ext_resource type="Script" path="res://Scripts/Flippable_shape.gd" id="11_3vu15"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qkrg3"]
-size = Vector2(23, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8tsmd"]
 size = Vector2(23, 32)
@@ -684,15 +681,7 @@ size = Vector2(20, 32)
 script = ExtResource("1_kms31")
 animation_tree = NodePath("AnimationTree")
 
-[node name="DamegeDetec" type="Area2D" parent="." groups=["DamegeDetec"]]
-collision_layer = 2
-collision_mask = 2
-
-[node name="DamegeDetecColision" type="CollisionShape2D" parent="DamegeDetec"]
-position = Vector2(-0.5, 2)
-shape = SubResource("RectangleShape2D_qkrg3")
-
-[node name="Corpo" type="CollisionShape2D" parent="."]
+[node name="DamegeDetec" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, 2)
 shape = SubResource("RectangleShape2D_8tsmd")
 debug_color = Color(2.96004e-06, 0.647767, 0.201648, 0.42)

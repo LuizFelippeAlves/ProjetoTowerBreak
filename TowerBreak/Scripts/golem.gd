@@ -3,6 +3,8 @@ extends CharacterBody2D
 @onready var AnimationGolem: AnimationPlayer = $AnimationGolem
 @onready var DecParede: RayCast2D = $DecParede
 
+const projetil := preload("res://Util/projetel.tscn")
+
 var movimento = Vector2()
 var player_in_area = false
 var ultima_direcao = 1.0

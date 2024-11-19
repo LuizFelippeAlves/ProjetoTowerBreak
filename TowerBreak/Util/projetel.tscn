@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://bxx5stt8ob7dl"]
+
+[ext_resource type="Script" path="res://Scripts/projetel.gd" id="1_ibkg4"]
+[ext_resource type="Texture2D" uid="uid://cs032ud8akacp" path="res://assets/Effects,Hud,Itens/SpriteGlmProjetil.png" id="1_y3al3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lrw1r"]
+
+[node name="Projetel" type="Area2D"]
+script = ExtResource("1_ibkg4")
+
+[node name="CollisionProjetil" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_lrw1r")
+
+[node name="Projetil" type="Sprite2D" parent="."]
+position = Vector2(-2, -6)
+texture = ExtResource("1_y3al3")
