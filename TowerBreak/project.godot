@@ -26,6 +26,7 @@ window/stretch/mode="viewport"
 Player="Personagem"
 Boss=""
 DamegeDetec=""
+Wall=""
 
 [input]
 

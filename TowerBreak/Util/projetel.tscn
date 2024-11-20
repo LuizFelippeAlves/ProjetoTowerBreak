@@ -14,3 +14,5 @@ shape = SubResource("RectangleShape2D_lrw1r")
 [node name="Projetil" type="Sprite2D" parent="."]
 position = Vector2(-2, -6)
 texture = ExtResource("1_y3al3")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
