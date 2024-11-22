@@ -98,17 +98,26 @@ func iniciar_ataque() -> void:
 
 func ataque_corpo() -> void:
 	is_attacking = true
-	await wait(2.6)
+	await wait(2.2)
+	var player = get_parent().get_node_or_null("Player")
+	if player and player_in_ataque == true:
+		player.receber_dano(30)  # Aplica o dano ao jogador
+	await wait(0.4)
 	is_attacking = false
 	ataque_iniciado = false
 	retomar_movimento()
 
 func ataque_mangual() -> void:
 	is_attacking = true
-	await wait(1.4)
+	await wait(1.1)
+	var player = get_parent().get_node_or_null("Player")
+	if player and player_in_ataque == true:
+		player.receber_dano(10)  # Aplica o dano ao jogador
+	await wait(0.3)
 	is_attacking = false
 	ataque_iniciado = false
 	retomar_movimento()
+
 
 func retomar_movimento() -> void:
 	if player_in_area and distancia_ao_jogador() > distancia_minima_do_player:
