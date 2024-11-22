@@ -1,8 +1,8 @@
 extends CharacterBody2D
 
-@export var nextScene = ""
+@export var Derrota = ""
 @export var animation_tree : AnimationTree
-@export var vida = 100
+@export var vida = 150
 
 var state_machine : AnimationNodeStateMachinePlayback
 var move_state_machine : AnimationNodeStateMachinePlayback
@@ -104,7 +104,7 @@ func receber_dano(valor_dano: int) -> void:
 		morrer()
 
 func morrer():
-	get_tree().change_scene_to_file(nextScene)
+	get_tree().change_scene_to_file(Derrota)
 
 func _on_reset_timeout() -> void:
 	counter = 0

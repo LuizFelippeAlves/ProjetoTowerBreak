@@ -307,7 +307,7 @@ _data = {
 "RESET": SubResource("Animation_0kkcy")
 }
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o7s8q"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o4uef"]
 texture = ExtResource("3_g7e16")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
@@ -1111,7 +1111,7 @@ texture_region_size = Vector2i(32, 32)
 39:19/0 = 0
 0:5/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_keykd"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pv5ks"]
 texture = ExtResource("4_y35ur")
 texture_region_size = Vector2i(32, 32)
 3:0/0 = 0
@@ -1462,7 +1462,7 @@ texture_region_size = Vector2i(32, 32)
 0:6/0 = 0
 0:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dag3n"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_25x1x"]
 texture = ExtResource("5_4gl6o")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
@@ -1666,7 +1666,7 @@ texture_region_size = Vector2i(32, 32)
 18:9/0 = 0
 19:9/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j48o5"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_py7hq"]
 texture = ExtResource("6_21atm")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
@@ -1710,10 +1710,10 @@ texture_region_size = Vector2i(32, 32)
 [sub_resource type="TileSet" id="TileSet_nlebb"]
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_o7s8q")
-sources/1 = SubResource("TileSetAtlasSource_keykd")
-sources/2 = SubResource("TileSetAtlasSource_dag3n")
-sources/3 = SubResource("TileSetAtlasSource_j48o5")
+sources/0 = SubResource("TileSetAtlasSource_o4uef")
+sources/1 = SubResource("TileSetAtlasSource_pv5ks")
+sources/2 = SubResource("TileSetAtlasSource_25x1x")
+sources/3 = SubResource("TileSetAtlasSource_py7hq")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mp4my"]
 

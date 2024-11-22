@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://xvlk0rk5jacc"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(312, 134)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(327, -136, -312, -135, -314, 187, 327, 187)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(321, 150)
+zoom = Vector2(1.615, 1.615)
+
+[node name="Label" type="Label" parent="."]
+offset_left = 293.0
+offset_top = 135.0
+offset_right = 405.0
+offset_bottom = 201.0
+text = "Fim ;-;"

@@ -623,20 +623,6 @@ tracks/2/keys = {
 "update": 1,
 "values": [true, false, true]
 }
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(2.22),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [40],
-"method": &"aplicar_dano"
-}]
-}
 
 [sub_resource type="Animation" id="Animation_yr7ww"]
 resource_name = "AtaqueMangual"
@@ -677,20 +663,6 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [true, false, true, false]
-}
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(1.1),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [10],
-"method": &"aplicar_dano"
-}]
 }
 
 [sub_resource type="Animation" id="Animation_fykx5"]
@@ -821,6 +793,7 @@ collision_layer = 2
 collision_mask = 0
 platform_floor_layers = 4294967041
 script = ExtResource("4_hx5ir")
+Derrota = "D:/ProjetoTowerBreak/TowerBreak/Scenes/Fim.tscn"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Coletor"]
 position = Vector2(-3, -17)
@@ -858,4 +831,5 @@ target_position = Vector2(35, 0)
 [connection signal="body_entered" from="Coletor/AreaDetec" to="Coletor" method="_on_area_detec_body_entered"]
 [connection signal="body_exited" from="Coletor/AreaDetec" to="Coletor" method="_on_area_detec_body_exited"]
 [connection signal="body_entered" from="Coletor/HitDetec" to="Coletor" method="_on_area_hit_body_entered"]
+[connection signal="body_entered" from="Coletor/HitDetec" to="Coletor/HitDetec" method="_on_body_entered"]
 [connection signal="body_exited" from="Coletor/HitDetec" to="Coletor" method="_on_area_hit_body_exited"]

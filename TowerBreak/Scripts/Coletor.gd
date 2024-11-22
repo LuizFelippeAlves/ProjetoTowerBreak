@@ -14,7 +14,9 @@ var contador_ataque_mangual = 0
 var limite_ataques_mangual = randi_range(4, 7)
 var distancia_minima_do_player = 30.0  # Distância mínima para manter do jogador
 var player_detectado_uma_vez = false
-@export var Coletor_Health = 100
+
+@export var Derrota = ""
+@export var Coletor_Health = 200
 @export var Coletor_Damage : float
 
 func wait(seconds: float) -> void:
@@ -132,19 +134,11 @@ func parar_movimento() -> void:
 	else:
 		AnimationColetor.stop()
 
-func aplicar_dano(dano: int) -> void:
-	print("Tentando aplicar dano:", dano)
-	var overlapping_areas = HitDetec.get_overlapping_areas()
-	
-	if overlapping_areas.size() > 0:
-		print("Áreas sobrepostas detectadas:", overlapping_areas.size())
-	else:
-		print("Nenhuma área sobreposta detectada.")
-	
-	for area in overlapping_areas:
-		if area.is_in_group("DamegeDetec"):
-			var player = area.get_parent()  # Assumindo que "DamageDetec" é filho do player
-			if player and player.has_method("receber_dano"):
-				player.receber_dano(dano)
-				print("Player atingido! Dano aplicado:", dano)
-				return
+func receber_dano(valor_dano: int) -> void:
+	Coletor_Health -= valor_dano
+	print("Boss recebeu dano:", valor_dano)
+	if Coletor_Health <= 0:
+		morrer()
+
+func morrer():
+	get_tree().change_scene_to_file(Derrota)

@@ -679,6 +679,7 @@ size = Vector2(20, 32)
 
 [node name="player" type="CharacterBody2D" node_paths=PackedStringArray("animation_tree") groups=["Player"]]
 script = ExtResource("1_kms31")
+Derrota = "res://Scenes/Inicio.tscn"
 animation_tree = NodePath("AnimationTree")
 
 [node name="DamegeDetec" type="CollisionShape2D" parent="."]
@@ -707,6 +708,8 @@ parameters/Movement/conditions/is_stopped = false
 wait_time = 2.0
 
 [node name="Hitibox" type="Area2D" parent="." node_paths=PackedStringArray("flippable_sprite")]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("10_ybptt")
 flippable_sprite = NodePath("../AnimatedSprite2D")
 
@@ -719,3 +722,4 @@ script = ExtResource("11_3vu15")
 default_position = Vector2(13, 2)
 
 [connection signal="timeout" from="RESET" to="." method="_on_reset_timeout"]
+[connection signal="body_entered" from="Hitibox" to="Hitibox" method="_on_body_entered"]
