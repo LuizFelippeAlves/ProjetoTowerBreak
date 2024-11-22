@@ -6,6 +6,8 @@ extends CharacterBody2D
 @onready var MarkProjet: Marker2D = $SetProjet/MarkProjet
 
 const projetil := preload("res://Util/projetel.tscn")  # Certifique-se de que o caminho está correto
+const pilar := preload("res://Util/pilar.tscn")  # Ajuste o caminho correto
+
 
 var movimento = Vector2()
 var player_in_area = false
@@ -26,10 +28,11 @@ func _process(delta: float) -> void:
 	detectar_parede()
 
 	if player_detectado:
-		if player_in_area:
-			seguir_player(delta)
-		elif not ataque_em_progresso:
+		if player_in_area and not ataque_em_progresso:
+			realizar_ataque_com_pilar()
+		elif not player_in_area and not ataque_em_progresso:
 			realizar_ataque()
+
 
 func _on_area_detec_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
@@ -42,6 +45,7 @@ func _on_area_detec_body_exited(body: Node2D) -> void:
 	if body.is_in_group("Player"):
 		player_in_area = false
 		print("Jogador saiu da área de detecção.")
+
 
 func seguir_player(delta: float) -> void:
 	var player = get_parent().get_node_or_null("Player")
@@ -96,3 +100,27 @@ func spawn_projetil() -> void:
 
 	# Confirma que o projétil foi spawnado corretamente
 	ataque_em_progresso = true
+
+func realizar_ataque_com_pilar():
+	ataque_em_progresso = true
+	AnimationGolem.play("AtaquePilar")  # Certifique-se de ter uma animação configurada para o ataque com pilar
+	print("Iniciando ataque com pilar...")
+	await wait(2.3)  # Tempo de preparação antes de spawnar o pilar
+	
+	var player = get_parent().get_node_or_null("Player")
+	if player and player_in_area:
+		spawn_pilar(player.global_position)  # Pilar na posição do jogador
+	else:
+		print("Jogador não está mais na área. Ataque cancelado.")
+
+	await wait(1.0)  # Tempo para terminar a execução do ataque
+	ataque_em_progresso = false
+
+func spawn_pilar(pos: Vector2):
+	var novo_pilar = pilar.instantiate()
+	if novo_pilar:
+		novo_pilar.position = pos
+		get_parent().add_child(novo_pilar)
+		print("Pilar spawnado na posição:", pos)
+	else:
+		print("Erro ao instanciar o pilar.")
