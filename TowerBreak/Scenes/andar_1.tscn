@@ -767,6 +767,7 @@ tile_set = SubResource("TileSet_60kdq")
 
 [node name="Player" parent="." instance=ExtResource("5_unj8g")]
 position = Vector2(50, 238)
+nextScene = "res://Scenes/Inicio.tscn"
 
 [node name="Golem" type="CharacterBody2D" parent="." groups=["Boss"]]
 position = Vector2(485, 246)

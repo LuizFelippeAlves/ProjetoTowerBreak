@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+@export var nextScene = ""
 @export var animation_tree : AnimationTree
 @export var vida = 100
 
@@ -103,8 +104,7 @@ func receber_dano(valor_dano: int) -> void:
 		morrer()
 
 func morrer():
-	print("O player morreu.")
-	# Lógica para quando o player morrer, como reiniciar o jogo ou finalizar a partida
+	get_tree().change_scene_to_file(nextScene)
 
 func _on_reset_timeout() -> void:
 	counter = 0
